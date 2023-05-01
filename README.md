@@ -1,2 +1,12 @@
-# App de biomarcadores
-En este repositorio se almacenan y detallan todos los avances de la aplicacion realizada para poder clasificar imagenes de mama en benignas o malignas.
+# App de biomarcadores - ES
+En este repositorio se almacenan y detallan todos los avances de la aplicación realizada para poder clasificar imágenes de mama en benignas o malignas.
+## Objetivo
+Se plantea el desarrollo de un aplicativo móvil en el cual se carguen imágenes  completas de ultrasonido de mama o de mamografía y mediante el uso de un segmentador extraer la región de interés (RoI), con ello se aplicará un algoritmo clasificador para determinar si la imagen es benigna o maligna.
+## Herramientas utilizadas
+ - React Native 0.71 
+ - Python 3.9 
+ - Pytorch
+## Maqueta - Prototipo
+<p align="center">
+  <img src="./repo_sources/mockup.gif" width="350px" alt="accessibility text">
+</p>

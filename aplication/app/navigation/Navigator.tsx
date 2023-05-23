@@ -15,10 +15,13 @@ const TabStack = createBottomTabNavigator()
 export default function Navigation() {
     return (
         <TabStack.Navigator
+            initialRouteName='Analisis'
             screenOptions={{
                 tabBarStyle: {
                     height: 70,
-                    paddingVertical: 5
+                    paddingVertical: 5,
+                    borderTopWidth: 0,
+                    elevation: 0
                 },
                 tabBarActiveTintColor: 'black',
                 header: ({ route, navigation }) => (
@@ -28,10 +31,10 @@ export default function Navigation() {
             }}
         >
             <TabStack.Screen
-                name="Usuario"
+                name="Mi perfil"
                 component={UserScreen}
                 options={{
-                    tabBarLabel: "Usuario",
+                    tabBarLabel: "Mi perfil",
                     tabBarLabelStyle: { fontSize: 13, marginBottom: 10 },
                     tabBarIcon: ({ focused }) => NavIcon('account-circle', 23, focused),
                 }}
@@ -42,7 +45,7 @@ export default function Navigation() {
                 options={{
                     tabBarLabel: "Historial",
                     tabBarLabelStyle: { fontSize: 13, marginBottom: 10 },
-                    tabBarIcon: ({ focused }) => NavIcon('history', 23, focused),
+                    tabBarIcon: ({ focused }) => NavIcon('progress-clock', 23, focused),
                 }}
             />
             <TabStack.Screen
@@ -51,7 +54,7 @@ export default function Navigation() {
                 options={{
                     tabBarLabel: "Análisis",
                     tabBarLabelStyle: { fontSize: 13, marginBottom: 10 },
-                    tabBarIcon: ({ focused }) => NavIcon('image-search', 23, focused),
+                    tabBarIcon: ({ focused }) => NavIcon('select-search', 23, focused),
                 }}
             />
             <TabStack.Screen
@@ -60,6 +63,7 @@ export default function Navigation() {
                 options={{
                     tabBarLabel: "Ayuda",
                     tabBarLabelStyle: { fontSize: 13, marginBottom: 10 },
+                    headerShown: false,
                     tabBarIcon: ({ focused }) => NavIcon('help-circle', 23, focused), //<Icon name="image-search" size={24} color="red" />//<MaterialIcons name={''} size={24} color={"black"} />//<MaterialCommunityIcons name="finance" size={24} color="black" />
                 }}
             />

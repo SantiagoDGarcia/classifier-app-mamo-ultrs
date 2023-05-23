@@ -3,6 +3,7 @@ import { Text, View, Image, Pressable } from 'react-native';
 import { LoginStyles } from '../../assets/styles/styles'
 import CustomTextInput from '../components/CustomTextInput'
 import CustomButton1, { CustomLink } from '../components/CustomButtons'
+import CustomLogo from '../components/CustomLogo'
 
 
 export default function LoginScreen() {
@@ -12,7 +13,7 @@ export default function LoginScreen() {
     return (
         <View style={LoginStyles.LoginContainer} >
             <View style={{ height: '90%', justifyContent: 'center' }}>
-                <Image source={require("../../assets/img/instagram-logo.png")} style={LoginStyles.logoTiltle} />
+                <CustomLogo color='black' />
                 <CustomTextInput
                     value={email}
                     onChangeValue={onChangeEmail}
@@ -30,9 +31,12 @@ export default function LoginScreen() {
                 <CustomLink
                     text=' ¿No tienes cuenta? Registrate'
                 />
+                <CustomLink
+                    text=' ¿Olvidaste tu contraseña? '
+                />
             </View>
             <View style={{ width: '90%', alignSelf: 'center' }}>
-                <Text style={{ textAlign: "justify" }}>Todos los derechos reservados y pertenecientes a la Universidad Tecnica Particular de Loja</Text>
+                <Text style={{ textAlign: "justify" }}>Todos los derechos reservados y pertenecientes a la Universidad Tecnica Particular de Loja.</Text>
             </View>
         </View >
     );

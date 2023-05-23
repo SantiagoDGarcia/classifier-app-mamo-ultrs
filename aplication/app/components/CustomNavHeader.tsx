@@ -1,12 +1,13 @@
 import { MaterialCommunityIcons, } from '@expo/vector-icons';
-import { StyleSheet, Text, View, Image, } from 'react-native';
-import colors from '../../assets/theme/colors'
+import { Text, View, Image, } from 'react-native';
+import { NavStyles } from '../../assets/styles/styles'
 
+import CustomLogo from './CustomLogo';
 
-export function NavHeader() {
+export const NavHeader = () => {
     return (
-        <View style={{ backgroundColor: colors.primary, height: 60, marginTop: 23 }}>
-            <Text>Biomarcadores UTPL</Text>
+        <View style={NavStyles.navBar}>
+            <CustomLogo />
         </View>
     );
 }

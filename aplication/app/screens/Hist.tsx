@@ -51,64 +51,67 @@ const HelpContent = [
     },
 ];
 
-export default function HistScreen() {
+export default function HistScreen({ navigation }: any) {
     return (
         <View style={GeneralStyles.container} >
             <View style={[GeneralStyles.subContainer, { alignItems: 'center' }]} >
                 <View style={{ margin: 25 }}>
                     <Text style={GeneralStyles.labelTitle}>Historial de analisis previos</Text>
-
                 </View>
                 <View style={{ width: '100%' }}>
                     <FlatList
                         data={HelpContent}
                         showsVerticalScrollIndicator={false}
                         renderItem={({ item }) => (
-                            <View style={{ marginBottom: 20 }}>
-                                <View style={{ flexDirection: 'row', }}>
-                                    <View style={{ flexDirection: 'row', width: '50%', }}>
-                                        <Image source={item.img} style={[HistStyles.images, { marginRight: '13%' }]} />
-                                        <Image source={item.imgMask} style={HistStyles.images} />
-                                    </View>
-                                    <View style={{ width: '50%', justifyContent: 'space-around', flex: 1 }}>
-                                        <View style={[HistStyles.container, { marginBottom: 5 }]} >
-                                            <Text style={GeneralStyles.labelSubtitle}>Resultados</Text>
-                                            {item.result == 'B' ?
-                                                <Text style={GeneralStyles.infoTextBenign}>BENIGNO</Text> :
-                                                <Text style={GeneralStyles.infoTextMalignant}>MALIGNO</Text>
-                                            }
+                            <TouchableHighlight onPress={() => navigation.navigate("Results")} underlayColor='#F8DAD1'>
+                                <View style={{ paddingTop: 10 }}>
+                                    <View style={{ flexDirection: 'row', }}>
+                                        <View style={{ flexDirection: 'row', width: '50%', }}>
+                                            <Image source={item.img} style={[HistStyles.images, { marginRight: '13%' }]} />
+                                            <Image source={item.imgMask} style={HistStyles.images} />
                                         </View>
-                                        <View style={HistStyles.container} >
-                                            <View style={[HistStyles.container, { width: '50%' }]} >
-                                                <Text style={HistStyles.labelStats}>Precision:</Text>
-                                                <Text style={HistStyles.infoStats}>{item.presicion?.toFixed()}%</Text>
+                                        <View style={{ width: '50%', justifyContent: 'space-around', flex: 1 }}>
+                                            <View style={[HistStyles.container, { marginBottom: 5 }]} >
+                                                <Text style={GeneralStyles.labelSubtitle}>Resultados</Text>
+                                                {item.result == 'B' ?
+                                                    <Text style={GeneralStyles.infoTextBenign}>BENIGNO</Text> :
+                                                    <Text style={GeneralStyles.infoTextMalignant}>MALIGNO</Text>
+                                                }
                                             </View>
-                                            <View style={[HistStyles.container, { width: '40%' }]} >
-                                                <Text style={HistStyles.labelStats}>Recall:</Text>
-                                                <Text style={HistStyles.infoStats}>{item.recall?.toFixed()}%</Text>
+                                            <View style={HistStyles.container} >
+                                                <View style={[HistStyles.container, { width: '50%' }]} >
+                                                    <Text style={HistStyles.labelStats}>Precision:</Text>
+                                                    <Text style={HistStyles.infoStats}>{item.presicion?.toFixed()}%</Text>
+                                                </View>
+                                                <View style={[HistStyles.container, { width: '40%' }]} >
+                                                    <Text style={HistStyles.labelStats}>Recall:</Text>
+                                                    <Text style={HistStyles.infoStats}>{item.recall?.toFixed()}%</Text>
+                                                </View>
                                             </View>
-                                        </View>
-                                        <View style={HistStyles.container} >
-                                            <View style={[HistStyles.container, { width: '50%' }]} >
-                                                <Text style={HistStyles.labelStats}>Accuracy:</Text>
-                                                <Text style={HistStyles.infoStats}>{item.accuracy?.toFixed()}%</Text>
+                                            <View style={HistStyles.container} >
+                                                <View style={[HistStyles.container, { width: '50%' }]} >
+                                                    <Text style={HistStyles.labelStats}>Accuracy:</Text>
+                                                    <Text style={HistStyles.infoStats}>{item.accuracy?.toFixed()}%</Text>
+                                                </View>
+                                                <View style={[HistStyles.container, { width: '40%' }]} >
+                                                    <Text style={HistStyles.labelStats}>F1:</Text>
+                                                    <Text style={HistStyles.infoStats}>{item.f1?.toFixed()}%</Text>
+                                                </View>
                                             </View>
-                                            <View style={[HistStyles.container, { width: '40%' }]} >
-                                                <Text style={HistStyles.labelStats}>F1:</Text>
-                                                <Text style={HistStyles.infoStats}>{item.f1?.toFixed()}%</Text>
-                                            </View>
+
                                         </View>
 
                                     </View>
+                                    <View style={[HistStyles.container, { marginTop: 8 }]} >
+                                        <CustomDividerText
+                                            positionLeft={true}
+                                            text={item.typeAnalysis == 'U' ? 'Ultrasonido' : 'Mamografía'} />
+                                        <Text >{item.dateAnalysis}</Text>
+                                    </View>
+                                    <CustomDivider />
                                 </View>
-                                <View style={[HistStyles.container, { marginTop: 8 }]} >
-                                    <CustomDividerText
-                                        positionLeft={true}
-                                        text={item.typeAnalysis == 'U' ? 'Ultrasonido' : 'Mamografía'} />
-                                    <Text >{item.dateAnalysis}</Text>
-                                </View>
-                                <CustomDivider />
-                            </View>
+                            </TouchableHighlight>
+
                         )}
                     />
                 </View>

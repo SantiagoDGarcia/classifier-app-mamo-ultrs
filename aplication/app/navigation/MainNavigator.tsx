@@ -9,8 +9,9 @@ import AnalysisScreen from "../screens/Analysis"
 import HelpScreen from "../screens/Help"
 import TestScreen from "../screens/interns/Test"
 import ResultsScreen from "../screens/interns/Results"
+import AnalysisNavigation from './AnalysisNavigator';
 
-const MainNavScreen = "Analisis"
+const MainNavScreen = "AnalisisNav"
 const SecondNavScreen = "Historial"
 const ThirdNavScreen = "Mi perfil"
 const FourthNavScreen = "Ayuda"
@@ -22,7 +23,7 @@ const NineNavScreen = "Comments"
 
 const TabStack = createBottomTabNavigator()
 
-export default function Navigation() {
+export default function MainNavigation() {
     return (
         <TabStack.Navigator
             initialRouteName={MainNavScreen}
@@ -59,9 +60,11 @@ export default function Navigation() {
             />
             <TabStack.Screen
                 name={MainNavScreen}
-                component={AnalysisScreen}
+                component={AnalysisNavigation}
                 options={{
                     tabBarLabel: "Análisis",
+                    headerShown: false,
+
                     tabBarLabelStyle: { fontSize: 13, marginBottom: 10 },
                     tabBarIcon: ({ focused }) => NavIcon('select-search', 23, focused),
                 }}

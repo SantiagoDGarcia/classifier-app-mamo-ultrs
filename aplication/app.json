@@ -1,16 +1,11 @@
 {
   "expo": {
-    "name": "AppClassificacionMama",
-    "slug": "AppClassificacionMama",
+    "name": "MamaCheck",
+    "slug": "MamaCheck",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/IconoBase14.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -19,8 +14,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/LogoBase.png",
+        "backgroundColor": "black"
       }
     },
     "androidNavigationBar": {

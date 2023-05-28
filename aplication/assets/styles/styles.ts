@@ -17,15 +17,20 @@ export const GeneralStyles = StyleSheet.create({
     logotipe: {
         alignSelf: "center",
         flexDirection: "row",
-        alignItems: 'center',
+        alignItems: 'center'
     },
     logotipeText: {
         padding: 5,
-        fontSize: fonts.normalSize + 1,
+        fontSize: fonts.normalSize + 5,
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 1,
+        fontWeight: 'bold',
+        fontFamily: 'Roboto'
     },
     logotipeImg: {
-        width: 15,
-        height: 15,
+        width: 28,
+        height: 28
+
     },
     labelTitle: {
         fontSize: fonts.normalSize + 1,
@@ -39,14 +44,23 @@ export const GeneralStyles = StyleSheet.create({
         borderRadius: 50,
         backgroundColor: '#539E2F',
         color: 'white',
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        textAlign: 'center'
     },
     infoTextMalignant: {
         borderRadius: 50,
         backgroundColor: '#CF4747',
         color: 'white',
         paddingHorizontal: 15,
-    }
+    },
+    borderContainer: {
+        borderColor: colors.primary,
+        borderWidth: 1,
+        borderRadius: 7,
+    },
+    textDescription: {
+        textAlign: 'justify'
+    },
 });
 
 // Login
@@ -54,7 +68,12 @@ export const LoginStyles = StyleSheet.create({
     LoginContainer: {
         width: "98%",
         height: "100%",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: 'white'
+    },
+    LoginSubContainer: {
+        height: '90%',
+        justifyContent: 'center'
     },
     LoginRegister: {
         color: colors.primary,
@@ -73,7 +92,7 @@ export const LoginStyles = StyleSheet.create({
         paddingHorizontal: 7,
         borderBottomWidth: 1,
         borderBottomColor: colors.primary,
-        paddingVertical: 9,
+        paddingVertical: 8,
         margin: 16
     },
 });

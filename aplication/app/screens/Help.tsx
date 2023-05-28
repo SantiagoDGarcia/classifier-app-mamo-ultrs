@@ -35,7 +35,7 @@ export default function HelpScreen() {
                                 <CustomDividerText
                                     positionLeft={true}
                                     text={item.title} />
-                                <Text style={{ marginBottom: 15 }}>{item.description}</Text>
+                                <Text style={[GeneralStyles.textDescription, { marginBottom: 15 }]}>{item.description}</Text>
                                 <CustomDivider />
                             </View>
 

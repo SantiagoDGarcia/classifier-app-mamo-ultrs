@@ -1,18 +1,53 @@
-import { NavigationContainer } from "@react-navigation/native";
-import MainNavigation from "./app/navigation/MainNavigator";
-import CredentialsNavigation from "./app/navigation/CredentialsNavigator";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
+import MainNavigation from "./src/navigation/MainNavigator";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { CustomStatusBar } from "./src/components";
+//import { StatusBar } from "react-native";
+import { useFonts } from "expo-font";
+import { navigationRef } from "./src/routes/router";
+import { assetsFonts } from "./constants";
+//import "./constants/translations/IMLocalize";
+import { Text, TextInput } from "react-native";
+import AppContextProvider from "./hooks/context";
 
-import { StatusBar } from 'react-native';
-import colors from './assets/theme/colors.ts'
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.maxFontSizeMultiplier = 0.8;
+TextInput.defaultProps = Text.defaultProps || {};
+TextInput.defaultProps.maxFontSizeMultiplier = 1;
 
-export default function App() {
-  const authorized = true;
-  // StatusBar.s('light-content', true);
-  StatusBar.setBackgroundColor(colors.primary);
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "transparent",
+  },
+};
+// type SectionProps = PropsWithChildren<{
+//   title: string,
+// }>;
+export default function App({ navigation }) {
+  //:JSX.Element {
+
+  const [loaded] = useFonts({
+    RobotoBold: assetsFonts.RobotoBold,
+    RobotoMediumBold: assetsFonts.RobotoMediumBold,
+    RobotoRegularBold: assetsFonts.RobotoRegularBold,
+    RobotoLightBold: assetsFonts.RobotoLightBold,
+  });
+
+  if (!loaded) return null;
+
+  function handleNavigationRef(ref) {
+    navigationRef.current = ref;
+  }
   return (
-    <NavigationContainer>
-      {authorized ? <MainNavigation /> : <CredentialsNavigation />}
-    </NavigationContainer>
+    <AppContextProvider>
+      <SafeAreaProvider>
+        <NavigationContainer theme={theme} ref={handleNavigationRef}>
+          <CustomStatusBar />
+          <MainNavigation />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </AppContextProvider>
   );
 }
-

@@ -4,11 +4,9 @@
     "slug": "MamaCheck",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/IconoBase14.png",
+    "icon": "./assets/IconoBase.png",
     "userInterfaceStyle": "light",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },

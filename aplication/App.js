@@ -2,13 +2,13 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import MainNavigation from "./src/navigation/MainNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { CustomStatusBar } from "./src/components";
-//import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
-import { navigationRef } from "./src/routes/router";
+import { navigationRef } from "./src/navigation/NavigationRouter";
 import { assetsFonts } from "./constants";
-//import "./constants/translations/IMLocalize";
 import { Text, TextInput } from "react-native";
 import AppContextProvider from "./hooks/context";
+import { Host } from "react-native-portalize";
+import "./src/helpers/languageDetector";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.maxFontSizeMultiplier = 0.8;
@@ -22,12 +22,8 @@ const theme = {
     background: "transparent",
   },
 };
-// type SectionProps = PropsWithChildren<{
-//   title: string,
-// }>;
-export default function App({ navigation }) {
-  //:JSX.Element {
 
+export default function App() {
   const [loaded] = useFonts({
     RobotoBold: assetsFonts.RobotoBold,
     RobotoMediumBold: assetsFonts.RobotoMediumBold,
@@ -40,14 +36,17 @@ export default function App({ navigation }) {
   function handleNavigationRef(ref) {
     navigationRef.current = ref;
   }
+
   return (
-    <AppContextProvider>
-      <SafeAreaProvider>
-        <NavigationContainer theme={theme} ref={handleNavigationRef}>
-          <CustomStatusBar />
-          <MainNavigation />
-        </NavigationContainer>
-      </SafeAreaProvider>
-    </AppContextProvider>
+    <Host>
+      <AppContextProvider>
+        <SafeAreaProvider>
+          <NavigationContainer theme={theme} ref={handleNavigationRef}>
+            <CustomStatusBar />
+            <MainNavigation />
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </AppContextProvider>
+    </Host>
   );
 }

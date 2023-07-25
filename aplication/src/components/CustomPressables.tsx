@@ -1,31 +1,40 @@
 import { Pressable, Text } from "react-native";
-import { COLORS, GeneralStyles } from "../../constants";
+import { ColorsTheme, GeneralStyles } from "../../constants";
 
-type defaultProps = {
+type CustomPressablesProps = {
   text: string;
   onPress?: () => void;
   disable?: boolean;
 };
-export function CustomButton({ text, onPress, disable }: defaultProps) {
+
+export function CustomButton({
+  text,
+  onPress,
+  disable,
+}: CustomPressablesProps) {
   return (
     <Pressable
       style={({ pressed }) => [
-        { backgroundColor: pressed ? COLORS.secondary : COLORS.primary },
+        {
+          backgroundColor: pressed
+            ? ColorsTheme.secondary
+            : ColorsTheme.primary,
+        },
         GeneralStyles.button,
       ]}
       disabled={disable}
       onPress={onPress}
     >
-      <Text style={GeneralStyles.buttonText}> {text}</Text>
+      <Text style={GeneralStyles.buttonText}>{text}</Text>
     </Pressable>
   );
 }
 
-export function CustomLink({ text, onPress }: defaultProps) {
+export function CustomLink({ text, onPress }: CustomPressablesProps) {
   return (
     <Pressable style={GeneralStyles.buttonLink} onPress={onPress}>
       {({ pressed }) => (
-        <Text style={[{ textDecorationLine: pressed ? "underline" : "none" }]}>
+        <Text style={{ textDecorationLine: pressed ? "underline" : "none" }}>
           {text}
         </Text>
       )}

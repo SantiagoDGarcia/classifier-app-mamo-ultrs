@@ -5,18 +5,19 @@ import type {
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
+// Define the possible routes and their parameters for the AnalysisNavigator
 export type AnalysisNavigatorParamList = {
   Analysis: undefined;
-  //   Test: {
-  //     typeAnalysis: string;
-  //   };
-  Test: undefined;
+  Test: {
+    typeAnalysis: string;
+  };
   Results: {
-    id: string;
+    idResult: string;
     typeAnalysis: string;
   };
 };
 
+// Define the possible routes for the bottom tab navigator
 export type BottomTabNavigatorParamList = {
   Profile: undefined;
   Hist: undefined;
@@ -26,23 +27,50 @@ export type BottomTabNavigatorParamList = {
   UserRegister: undefined;
 };
 
-export type AnalysisScreenProp = NativeStackNavigationProp<
-  AnalysisNavigatorParamList,
-  "Analysis"
+// Define the navigation props for each component
+export type ProfileScreenNavigationProp = BottomTabNavigationProp<
+  BottomTabNavigatorParamList,
+  "Profile"
 >;
 
-export type HistScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<BottomTabNavigatorParamList, "Hist">,
-  NativeStackNavigationProp<AnalysisNavigatorParamList, "Test">
->;
-
-/*
 export type HistScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<BottomTabNavigatorParamList, "Hist">,
   NativeStackNavigationProp<AnalysisNavigatorParamList>
 >;
-*/
-export type DetailsScreenRouteProp = RouteProp<
+
+export type HelpScreenNavigationProp = BottomTabNavigationProp<
+  BottomTabNavigatorParamList,
+  "Help"
+>;
+
+export type UserLoginScreenNavigationProp = BottomTabNavigationProp<
+  BottomTabNavigatorParamList,
+  "UserLogin"
+>;
+
+export type UserRegisterScreenNavigationProp = BottomTabNavigationProp<
+  BottomTabNavigatorParamList,
+  "UserRegister"
+>;
+
+export type AnalysisScreenNavigationProp = BottomTabNavigationProp<
   AnalysisNavigatorParamList,
-  "Test"
+  "Analysis"
+>;
+export type TestScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<BottomTabNavigatorParamList, "AnalysisNav">,
+  NativeStackNavigationProp<AnalysisNavigatorParamList, "Test">
+>;
+
+export type ResultsScreenNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<BottomTabNavigatorParamList, "AnalysisNav">,
+  NativeStackNavigationProp<AnalysisNavigatorParamList, "Results">
+>;
+
+// Define the route props for each component
+export type TestScreenRouteProp = RouteProp<AnalysisNavigatorParamList, "Test">;
+
+export type ResultsScreenRouteProp = RouteProp<
+  AnalysisNavigatorParamList,
+  "Results"
 >;

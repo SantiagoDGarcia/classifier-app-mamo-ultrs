@@ -5,9 +5,9 @@ import {
   View,
   Image,
 } from "react-native";
-import { COLORS, TextInputsStyles } from "../../constants";
+import { ColorsTheme, TextInputsStyles } from "../../constants";
 
-type defaultProps = {
+type CustomTextInputProps = {
   value: string;
   onChangeValue: (text: string) => void;
   textPlaceholder: string;
@@ -27,7 +27,7 @@ export default function CustomTextInput({
   stateOnBlur,
   error,
   icon,
-}: defaultProps) {
+}: CustomTextInputProps) {
   return (
     <>
       <View style={TextInputsStyles.container}>
@@ -36,7 +36,7 @@ export default function CustomTextInput({
           style={TextInputsStyles.textInput}
           autoCapitalize="none"
           onChangeText={onChangeValue}
-          placeholderTextColor={COLORS.primary}
+          placeholderTextColor={ColorsTheme.primary}
           placeholder={textPlaceholder}
           secureTextEntry={secureTextEntry}
           onBlur={onBlur}

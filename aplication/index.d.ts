@@ -1,7 +1,11 @@
+declare module "@env";
+
 interface TypeColor {
   primary: string;
   secondary: string;
   tertiary: string;
+  positiveResult: string;
+  negativeResult: string;
   gray: string;
 }
 

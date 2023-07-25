@@ -4,15 +4,23 @@
     "slug": "MamaCheck",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/IconoBase.png",
+    "icon": "./assets/img/IconBase.png",
     "userInterfaceStyle": "light",
     "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app only accesses your photos to load a image to test."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/LogoBase.png",
+        "foregroundImage": "./assets/img/LogoBase.png",
         "backgroundColor": "black"
       }
     },

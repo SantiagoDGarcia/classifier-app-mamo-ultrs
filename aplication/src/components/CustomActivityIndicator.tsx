@@ -1,17 +1,26 @@
 import { ActivityIndicator, Text, View } from "react-native";
-import { AlertStyles, COLORS } from "../../constants";
+import { AlertStyles, ColorsTheme } from "../../constants";
+import { Portal } from "react-native-portalize";
 
-type defaultProps = {
+type CustomActivityIndicatorProps = {
   actionText: string;
+  indicatorActive: boolean;
 };
 
-export default function CustomActivityIndicator({ actionText }: defaultProps) {
+export default function CustomActivityIndicator({
+  actionText,
+  indicatorActive,
+}: CustomActivityIndicatorProps) {
   return (
-    <View style={AlertStyles.container}>
-      <View style={AlertStyles.subContainer}>
-        <ActivityIndicator size="large" color={COLORS.primary} />
-        <Text style={AlertStyles.text}>{actionText}</Text>
+    <Portal>
+      <View style={AlertStyles.container}>
+        <View style={AlertStyles.subContainer}>
+          {indicatorActive && (
+            <ActivityIndicator size="large" color={ColorsTheme.primary} />
+          )}
+          <Text style={AlertStyles.text}>{actionText}</Text>
+        </View>
       </View>
-    </View>
+    </Portal>
   );
 }

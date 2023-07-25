@@ -6,73 +6,24 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import { GeneralStyles } from "../../../constants/styles";
 import {
   CustomDividerText,
   CustomDivider,
 } from "../../components/CustomDivider";
-import { assetsIcons } from "../../../constants";
-type ItemData = {
-  title: string;
-  description: string;
-};
-const HelpContent: ItemData[] = [
-  {
-    title: "¿Que tipo de imagenes admite la aplicacion?",
-    description:
-      "La aplicacion admite diversos tipos de imágenes, entre ellos se sencuentran JPG, PNG, JPEG, BMP",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Que tipo de imagenes admite la aplicacion?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se sencuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Que tipo de imagenes admite la aplicacion?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se sencuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-  {
-    title: "¿Como mejorar el resultado del analisis?",
-    description:
-      "La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG La aplicacion admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG admite diversos tipos de imagenes, entre ellos se encuentran JPG, PNG, JPEG",
-  },
-];
-
+import { assetsIcons, GeneralStyles } from "../../../constants";
+import HelpContent from "./HelpContent";
 export default function HelpScreen() {
+  const data = HelpContent();
+
   return (
     <SafeAreaView style={[GeneralStyles.container]}>
       <View style={[GeneralStyles.subContainer, { flex: 1 }]}>
         <View style={{ width: "100%", flex: 1 }}>
           <FlatList
-            data={HelpContent}
+            data={data}
             showsVerticalScrollIndicator={false}
             endFillColor="#000"
+            keyExtractor={(item) => item.id.toString()}
             overScrollMode="never"
             ListHeaderComponent={() => (
               <View
@@ -108,7 +59,6 @@ export default function HelpScreen() {
                 <CustomDivider />
               </View>
             )}
-            // keyExtractor={item => item.id}
           />
         </View>
       </View>

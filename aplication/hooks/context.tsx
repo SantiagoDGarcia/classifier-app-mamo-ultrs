@@ -6,13 +6,21 @@ const AppContextProvider = (props: {
 }) => {
   const [user, setUser] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean | null>(false);
-
+  const [fullScreenIndex, setFullScreenIndex] = useState<number | null>(0);
+  const [activatedFullScreen, setActivatedFullScreen] = useState<
+    boolean | null
+  >(false);
   return (
     <AppContext.Provider
       value={{
         userData: [user, setUser],
         isLoading: [loading, setLoading],
-        // user: { name: [user, setUser] },
+        activatedFullScreen: [
+          activatedFullScreen,
+          setActivatedFullScreen,
+          fullScreenIndex,
+          setFullScreenIndex,
+        ],
       }}
     >
       {props.children}

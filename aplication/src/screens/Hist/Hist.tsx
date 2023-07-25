@@ -5,186 +5,151 @@ import {
   Image,
   FlatList,
   SafeAreaView,
-  Dimensions,
 } from "react-native";
-import { GeneralStyles, HistStyles } from "../../../constants/styles";
+import { useNavigation } from "@react-navigation/native";
+import { HistScreenNavigationProp } from "../../navigation/types";
+import { useEffect, useState } from "react";
 import {
+  CustomActivityIndicator,
   CustomDividerText,
   CustomDivider,
-} from "../../components/CustomDivider";
-import { useNavigation } from "@react-navigation/native";
-import {
-  AnalysisScreenProp,
-  HistScreenNavigationProp,
-} from "../../navigation/types";
-
-const HelpContent = [
-  {
-    typeAnalysis: "U",
-    dateAnalysis: "01/05/2023",
-    img: require("../../../assets/img/ultrasound-example.png"),
-    imgMask: require("../../../assets/img/mask-ultrasound-example.png"),
-    result: "B",
-    presicion: 90.2,
-    accuracy: 85.5,
-    recall: 70.3,
-    f1: 74.9,
-  },
-  {
-    typeAnalysis: "M",
-    dateAnalysis: "03/05/2023",
-    img: require("../../../assets/img/mammography-example.png"),
-    imgMask: require("../../../assets/img/mask-mammography-example.png"),
-    result: "M",
-    presicion: 98.2,
-    accuracy: 89.5,
-    recall: 75.3,
-    f1: 79.9,
-  },
-  {
-    typeAnalysis: "U",
-    dateAnalysis: "02/05/2023",
-    img: require("../../../assets/img/ultrasound-example.png"),
-    imgMask: require("../../../assets/img/mask-ultrasound-example.png"),
-    result: "B",
-    presicion: 91.2,
-    accuracy: 96.5,
-    recall: 90.3,
-    f1: 89.9,
-  },
-  {
-    typeAnalysis: "M",
-    dateAnalysis: "05/05/2023",
-    img: require("../../../assets/img/mammography-example.png"),
-    imgMask: require("../../../assets/img/mask-ultrasound-example.png"),
-    result: "M",
-    presicion: 94.2,
-    accuracy: 79.5,
-    recall: 78.3,
-    f1: 75.9,
-  },
-  {
-    typeAnalysis: "M",
-    dateAnalysis: "05/05/2023",
-    img: require("../../../assets/img/mammography-example.png"),
-    imgMask: require("../../../assets/img/mask-ultrasound-example.png"),
-    result: "M",
-    presicion: 94.2,
-    accuracy: 79.5,
-    recall: 78.3,
-    f1: 75.9,
-  },
-];
+} from "../../components";
+import { GeneralStyles, HistStyles, ColorsTheme } from "../../../constants";
+import { getAllResultsData } from "../../services";
+import { timeConverter } from "../../helpers";
+import FastImage from "react-native-fast-image";
+import { useTranslation } from "react-i18next";
 
 export default function HistScreen() {
   const navigation = useNavigation<HistScreenNavigationProp>();
+
+  const [loading, setLoading] = useState<boolean | null>(true);
+  const [histData, setHistData]: any = useState(null);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("focus", () => {
+      setLoading(true);
+      getAllResultsData().then((value) => {
+        setHistData(value);
+        setLoading(false);
+      });
+    });
+
+    return unsubscribe;
+  }, []);
   return (
     <SafeAreaView style={GeneralStyles.container}>
-      <View style={[GeneralStyles.subContainer, { flex: 1 }]}>
-        <Text style={GeneralStyles.labelTitle}>
-          Historial de analisis previos
-        </Text>
-        <View
-          style={{
-            width: "100%",
-            flex: 1,
-            //minHeight: Dimensions.get("window").height * 0.7,
-          }}
-        >
-          <FlatList
-            data={HelpContent}
-            showsVerticalScrollIndicator={false}
-            style={{ backgroundColor: "white", flex: 1 }}
-            overScrollMode="never"
-            renderItem={({ item }) => (
-              <TouchableHighlight
-                onPress={() =>
-                  // navigation.navigate("AnalisisNav", {
-                  //   screen: "Results",
-                  //   params: { typeAnalysis: item.typeAnalysis },
-                  // })
-                  navigation.navigate("Test")
-                }
-                underlayColor="#FFF8F7"
-              >
-                <View style={{ paddingTop: 15 }}>
-                  <View style={{ flexDirection: "row" }}>
-                    <View style={{ flexDirection: "row", width: "50%" }}>
-                      <Image
-                        source={item.img}
-                        style={[HistStyles.images, { marginRight: "13%" }]}
-                      />
-                      <Image source={item.imgMask} style={HistStyles.images} />
+      {loading ? (
+        <CustomActivityIndicator
+          indicatorActive={loading}
+          actionText={t("alert:loading")}
+        />
+      ) : (
+        <View style={[GeneralStyles.subContainer, { flex: 1 }]}>
+          <Text style={GeneralStyles.labelTitle}>
+            {t("common:previousAnalysisHistory")}
+          </Text>
+          <View style={{ width: "100%", flex: 1 }}>
+            <FlatList
+              data={histData}
+              showsVerticalScrollIndicator={false}
+              style={{ backgroundColor: "white", flex: 1 }}
+              overScrollMode="never"
+              ListEmptyComponent={
+                <Text style={{ textAlign: "center" }}>
+                  {t("common:noHistResults")}
+                </Text>
+              }
+              renderItem={({ item }) => {
+                var thisType =
+                  item.typeAnalysis == "U"
+                    ? t("common:ultrasound")
+                    : t("common:mammography");
+                return (
+                  <TouchableHighlight
+                    onPress={() =>
+                      navigation.navigate("Results", {
+                        idResult: item.idResult,
+                        typeAnalysis: thisType,
+                      })
+                    }
+                    underlayColor={ColorsTheme.tertiary}
+                  >
+                    <View style={{ paddingTop: 15 }}>
+                      <View style={{ flexDirection: "row" }}>
+                        <View style={HistStyles.imagesContainer}>
+                          <Image
+                            source={{
+                              uri: item.imgUrl,
+                              //priority: FastImage.priority.normal,
+                            }}
+                            style={HistStyles.images}
+                          />
+                        </View>
+                        <View style={HistStyles.infoContainer}>
+                          <View
+                            style={[HistStyles.container, { marginBottom: 5 }]}
+                          >
+                            <Text style={GeneralStyles.labelSubtitle}>
+                              {t("common:results")}
+                            </Text>
+                            <Text
+                              style={[
+                                GeneralStyles.infoText,
+                                {
+                                  backgroundColor:
+                                    item.testResult === "B"
+                                      ? ColorsTheme.positiveResult
+                                      : ColorsTheme.negativeResult,
+                                },
+                              ]}
+                            >
+                              {item.testResult === "B"
+                                ? t("common:benign")
+                                : t("common:malignant")}
+                            </Text>
+                          </View>
+                          <View style={HistStyles.container}>
+                            <View style={HistStyles.subLeftContainer}>
+                              <Text style={HistStyles.labelStats}>
+                                {t("common:roiExtracted")}:
+                              </Text>
+                            </View>
+                            <View style={HistStyles.subRightContainer}>
+                              <Text style={HistStyles.infoStats}>SI</Text>
+                            </View>
+                          </View>
+                          <View style={HistStyles.container}>
+                            <View style={HistStyles.subLeftContainer}>
+                              <Text style={HistStyles.labelStats}>
+                                {t("common:durationAnalysis")}:
+                              </Text>
+                            </View>
+                            <View style={HistStyles.subRightContainer}>
+                              <Text style={HistStyles.infoStats}>
+                                Menos de 1 min.
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={[HistStyles.container, { marginTop: 8 }]}>
+                        <CustomDividerText
+                          positionLeft={true}
+                          text={thisType}
+                        />
+                        <Text>{timeConverter(item.dateAnalysis)}</Text>
+                      </View>
+                      <CustomDivider />
                     </View>
-                    <View
-                      style={{
-                        width: "50%",
-                        justifyContent: "space-around",
-                        flex: 1,
-                      }}
-                    >
-                      <View style={[HistStyles.container, { marginBottom: 5 }]}>
-                        <Text style={GeneralStyles.labelSubtitle}>
-                          Resultados
-                        </Text>
-                        <Text
-                          style={[
-                            GeneralStyles.infoText,
-                            {
-                              backgroundColor:
-                                item.result === "B" ? "#539E2F" : "#CF4747",
-                            },
-                          ]}
-                        >
-                          {item.result === "B" ? "BENIGNO" : "MALIGNO"}
-                        </Text>
-                      </View>
-                      <View style={HistStyles.container}>
-                        <View style={[HistStyles.container, { width: "50%" }]}>
-                          <Text style={HistStyles.labelStats}>Precision:</Text>
-                          <Text style={HistStyles.infoStats}>
-                            {item.presicion?.toFixed()}%
-                          </Text>
-                        </View>
-                        <View style={[HistStyles.container, { width: "40%" }]}>
-                          <Text style={HistStyles.labelStats}>Recall:</Text>
-                          <Text style={HistStyles.infoStats}>
-                            {item.recall?.toFixed()}%
-                          </Text>
-                        </View>
-                      </View>
-                      <View style={HistStyles.container}>
-                        <View style={[HistStyles.container, { width: "50%" }]}>
-                          <Text style={HistStyles.labelStats}>Accuracy:</Text>
-                          <Text style={HistStyles.infoStats}>
-                            {item.accuracy?.toFixed()}%
-                          </Text>
-                        </View>
-                        <View style={[HistStyles.container, { width: "40%" }]}>
-                          <Text style={HistStyles.labelStats}>F1:</Text>
-                          <Text style={HistStyles.infoStats}>
-                            {item.f1?.toFixed()}%
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </View>
-                  <View style={[HistStyles.container, { marginTop: 8 }]}>
-                    <CustomDividerText
-                      positionLeft={true}
-                      text={
-                        item.typeAnalysis == "U" ? "Ultrasonido" : "Mamografía"
-                      }
-                    />
-                    <Text>{item.dateAnalysis}</Text>
-                  </View>
-                  <CustomDivider />
-                </View>
-              </TouchableHighlight>
-            )}
-          />
+                  </TouchableHighlight>
+                );
+              }}
+            />
+          </View>
         </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 }

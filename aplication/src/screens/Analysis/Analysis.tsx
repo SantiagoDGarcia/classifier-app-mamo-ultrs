@@ -2,21 +2,24 @@ import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { GeneralStyles, assetsIcons, assetsImages } from "../../../constants";
 import { CustomCard } from "../../components";
-import { AnalysisScreenProp } from "../../navigation/types";
+import { AnalysisScreenNavigationProp } from "../../navigation/types";
 import { useNavigation } from "@react-navigation/native";
+import { initReactI18next, useTranslation } from "react-i18next";
 
 export default function AnalysisScreen() {
-  const navigation = useNavigation<AnalysisScreenProp>();
+  const navigation = useNavigation<AnalysisScreenNavigationProp>();
+  const { t } = useTranslation();
+
   return (
     <SafeAreaView
       style={[GeneralStyles.container, { justifyContent: "center" }]}
     >
       <View style={GeneralStyles.subContainer}>
         <Text style={{ color: "gray", fontSize: 14 }}>
-          Selecciona el tipo de imágen a analizar.
+          {t("common:initMessage")}
         </Text>
         <CustomCard
-          title="Ultrasonido"
+          title={`${t("common:ultrasound")}`}
           navigation={navigation}
           imgSource={assetsImages.ultrasoundExample}
           iconSource={assetsIcons.ultrasound}
@@ -24,7 +27,7 @@ export default function AnalysisScreen() {
         <CustomCard
           positionLeft={true}
           navigation={navigation}
-          title="Mamografia"
+          title={`${t("common:mammography")}`}
           imgSource={assetsImages.mammographyExample}
           iconSource={assetsIcons.mammography}
         />

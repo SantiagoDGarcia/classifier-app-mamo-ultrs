@@ -1,8 +1,8 @@
 import { Divider } from "@rneui/themed";
-import { Pressable, Text } from "react-native";
-import { COLORS } from "../../constants";
+import { Text } from "react-native";
+import { ColorsTheme } from "../../constants";
 
-type defaultProps = {
+type CustomDividerTextProps = {
   positionLeft?: boolean;
   text: string;
 };
@@ -11,22 +11,23 @@ export function CustomDivider() {
   return (
     <Divider
       width={1}
-      color={COLORS.primary}
+      color={ColorsTheme.primary}
       style={{ width: "100%", alignSelf: "center" }}
     />
   );
 }
 
-export function CustomDividerText({ positionLeft, text }: defaultProps) {
+export function CustomDividerText({
+  positionLeft,
+  text,
+}: CustomDividerTextProps) {
   return (
     <Text
-      style={[
-        {
-          alignSelf: positionLeft ? "flex-start" : "flex-end",
-          color: COLORS.primary,
-          paddingBottom: 5,
-        },
-      ]}
+      style={{
+        alignSelf: positionLeft ? "flex-start" : "flex-end",
+        color: ColorsTheme.primary,
+        paddingBottom: 5,
+      }}
     >
       {text}
     </Text>

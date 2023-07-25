@@ -1,20 +1,17 @@
-import { Platform, StyleSheet, StatusBar, Dimensions } from "react-native";
+import { Dimensions } from "react-native";
 
-const { fontScale, scale } = Dimensions.get("window"); // import useWindowDimensions()
+const { fontScale } = Dimensions.get("window"); // import useWindowDimensions()
 
-//const styles = makeStyles(fontScale);
-function fontssad() {
-  //return fontScale; // import useWindowDimensions()
-  console.log(Dimensions.get("window"));
-}
-export const COLORS: TypeColor = {
+export const ColorsTheme: TypeColor = {
   primary: "#D17357", //#AB482A
   secondary: "#C45942",
   tertiary: "#FFF8F7",
+  positiveResult: "#539E2F",
+  negativeResult: "#CF4747",
   gray: "gray",
 };
-fontssad();
-export const SIZES: TypeSize = {
+
+export const SizesTheme: TypeSize = {
   base: 8,
   small: 13,
   normal: fontScale < 1 ? 20 : 18 * fontScale,
@@ -23,46 +20,10 @@ export const SIZES: TypeSize = {
   extraLarge: 24,
 };
 
-export const FONTS = {
+export const FontsTheme = {
   bold: "RobotoBold",
   //semiBold: "RobotoSemiBold",
   medium: "RobotoMedium",
   regular: "RobotoRegular",
   light: "RobotoLight",
-};
-
-export const SHADOWS = {
-  light: {
-    shadowColor: COLORS.gray,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-
-    elevation: 3,
-  },
-  medium: {
-    shadowColor: COLORS.gray,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-
-    elevation: 7,
-  },
-  dark: {
-    shadowColor: COLORS.gray,
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.41,
-    shadowRadius: 9.11,
-
-    elevation: 14,
-  },
 };

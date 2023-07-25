@@ -6,18 +6,17 @@ import {
   Image,
   StyleProp,
   TextStyle,
-  FlexAlignType,
 } from "react-native";
 import { CustomDivider } from "./CustomDivider";
 import { CardStyles } from "../../constants";
 
-type defaultProps = {
+interface CustomCardProps {
   positionLeft?: boolean;
   title: string;
   imgSource: ImageSourcePropType;
   iconSource: ImageSourcePropType;
   navigation: any;
-};
+}
 
 export default function CustomCard({
   positionLeft,
@@ -25,22 +24,24 @@ export default function CustomCard({
   imgSource,
   iconSource,
   navigation,
-}: defaultProps) {
+}: CustomCardProps) {
   const orientationStyle: StyleProp<TextStyle> = positionLeft
     ? CardStyles.titleLeft
     : CardStyles.titleRight;
-  const orientation: FlexAlignType = positionLeft ? "flex-start" : "flex-end";
-  const orientationInv: FlexAlignType = !positionLeft
-    ? "flex-start"
-    : "flex-end";
+
   return (
     <View style={CardStyles.layout}>
       <TouchableHighlight
-        onPress={() => navigation.navigate("Test")}
+        onPress={() => navigation.navigate("Test", { typeAnalysis: title })}
         underlayColor="white"
         style={{ borderRadius: 7, width: "100%" }}
       >
-        <View style={[CardStyles.container, { alignSelf: orientation }]}>
+        <View
+          style={[
+            CardStyles.container,
+            { alignSelf: positionLeft ? "flex-start" : "flex-end" },
+          ]}
+        >
           <View style={{ width: "100%", alignItems: "center" }}>
             <Image source={imgSource} style={CardStyles.image} />
           </View>
@@ -50,7 +51,10 @@ export default function CustomCard({
       <View>
         <Image
           source={iconSource}
-          style={[CardStyles.icon, { alignSelf: orientationInv }]}
+          style={[
+            CardStyles.icon,
+            { alignSelf: !positionLeft ? "flex-start" : "flex-end" },
+          ]}
         />
         <CustomDivider />
       </View>

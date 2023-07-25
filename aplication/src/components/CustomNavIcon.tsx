@@ -1,18 +1,23 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-//import Icon from 'react-native-ionicons'
-import { NavStyles, COLORS } from "../../constants";
+import { NavStyles, ColorsTheme } from "../../constants";
 
-export default function CustomNavIcon(
-  name: any,
-  size: number,
-  focused: boolean
-) {
+type CustomNavIconProps = {
+  name: any;
+  size?: number;
+  focused: boolean;
+};
+
+export default function CustomNavIcon({
+  name,
+  size = 23,
+  focused,
+}: CustomNavIconProps) {
   return (
     <View
       style={[
         NavStyles.tabIconStyle,
-        { backgroundColor: focused ? COLORS.secondary : "none" },
+        { backgroundColor: focused ? ColorsTheme.secondary : "transparent" },
       ]}
     >
       <MaterialCommunityIcons name={name} size={size} color="#343030" />

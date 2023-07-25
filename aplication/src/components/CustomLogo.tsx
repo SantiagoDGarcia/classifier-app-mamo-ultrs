@@ -1,18 +1,21 @@
 import { Text, View, Image, SafeAreaView } from "react-native";
 import { GeneralStyles } from "../../constants/styles";
-import { FONTS, assetsIcons } from "../../constants";
+import { FontsTheme, assetsIcons } from "../../constants";
 
-//import { Bower } from '../../assets/img/bower.svg'
-type defaultProps = {
+type CustomLogoProps = {
   color?: string;
 };
-export default function CustomLogo({ color }: defaultProps) {
+
+export default function CustomLogo({ color }: CustomLogoProps) {
   return (
     <SafeAreaView style={GeneralStyles.logotipe}>
       <Text
         style={[
           GeneralStyles.logotipeText,
-          { color: color ? color : "white", fontFamily: FONTS.bold },
+          {
+            color: color || "white",
+            fontFamily: FontsTheme.bold,
+          },
         ]}
       >
         MamaCheck
@@ -22,7 +25,7 @@ export default function CustomLogo({ color }: defaultProps) {
   );
 }
 
-export function CustomLogoMedium({}: defaultProps) {
+export function CustomLogoMedium() {
   return (
     <View style={[GeneralStyles.logotipe, { flexDirection: "column" }]}>
       <Image source={assetsIcons.logoBase} style={{ width: 85, height: 85 }} />

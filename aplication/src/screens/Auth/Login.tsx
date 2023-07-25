@@ -7,7 +7,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Text,
   View,
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -24,12 +23,17 @@ import {
 } from "../../components";
 import { assetsIcons } from "../../../constants";
 import AppContext from "../../../hooks/createContext";
-import { loginUser } from "../../services";
+import { loginUser, sendEmailOnReset } from "../../services";
+import { useTranslation } from "react-i18next";
 
 export default function LoginScreen({ navigation }: any) {
   const {
     isLoading: [loading, setLoading],
   } = useContext(AppContext)!;
+
+  const [resetPassword, setResetPassword] = useState(false);
+  const [emailToReset, setEmailToReset] = useState("");
+  const { t } = useTranslation();
 
   const validator = useFormik({
     initialValues: {
@@ -42,16 +46,17 @@ export default function LoginScreen({ navigation }: any) {
     },
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Correo electrónico inválido. Verifique")
-        .required("Ingrese su correo electrónico."),
-      password: Yup.string().required("Ingrese su contraseña."),
+        .email(` ${t("alert:invalidEmail")} `)
+        .required(` ${t("alert:enterEmail")} `),
+      password: Yup.string().required(` ${t("alert:enterPassword")} `),
     }),
     onSubmit: (values) => {
       setLoading(true);
-      loginUser(values.email, values.password);
-      setTimeout(() => {
-        setLoading(false);
-      }, 400);
+      loginUser(values.email, values.password).finally(() =>
+        setTimeout(() => {
+          setLoading(false);
+        }, 500)
+      );
     },
   });
 
@@ -61,7 +66,12 @@ export default function LoginScreen({ navigation }: any) {
         style={{ flex: 1, minHeight: "100%" }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
-        {loading && <CustomActivityIndicator actionText="Espere..." />}
+        {loading && (
+          <CustomActivityIndicator
+            actionText={t("alert:wait")}
+            indicatorActive={loading}
+          />
+        )}
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
           style={{ flex: 1 }}
@@ -70,44 +80,80 @@ export default function LoginScreen({ navigation }: any) {
           <View style={{ flex: 1 }}>
             <View style={LoginStyles.LoginSubContainer}>
               <CustomLogo color="black" />
-              <CustomTextInput
-                value={validator.values.email}
-                onChangeValue={(text) =>
-                  validator.setFieldValue("email", text.replace(" ", ""))
-                }
-                textPlaceholder={"Correo electrónico"}
-                error={validator.errors.email}
-                onBlur={() => validator.setFieldTouched("email")}
-                stateOnBlur={validator.touched.email}
-                icon={assetsIcons.email}
-              />
-              <CustomTextInput
-                value={validator.values.password}
-                onChangeValue={(text) =>
-                  validator.setFieldValue("password", text)
-                }
-                textPlaceholder={"Contraseña"}
-                error={validator.errors.password}
-                secureTextEntry={true}
-                onBlur={() => validator.setFieldTouched("password")}
-                stateOnBlur={validator.touched.password}
-                icon={assetsIcons.padlock}
-              />
-              <CustomButton
-                text="Iniciar sesión"
-                //disable={!validator.isValid}
-                onPress={validator.handleSubmit}
-              />
-              <CustomLink
-                text=" ¿No tienes cuenta? Registrate."
-                onPress={() => navigation.navigate("UserRegister")}
-              />
-              <CustomLink text=" ¿Olvidaste tu contraseña? " />
+              {!resetPassword ? (
+                <>
+                  <CustomTextInput
+                    value={validator.values.email}
+                    onChangeValue={(text) =>
+                      validator.setFieldValue("email", text.replace(" ", ""))
+                    }
+                    textPlaceholder={`${t("common:email")}`}
+                    error={validator.errors.email}
+                    onBlur={() => validator.setFieldTouched("email")}
+                    stateOnBlur={validator.touched.email}
+                    icon={assetsIcons.email}
+                  />
+                  <CustomTextInput
+                    value={validator.values.password}
+                    onChangeValue={(text) =>
+                      validator.setFieldValue("password", text)
+                    }
+                    textPlaceholder={`${t("common:password")}`}
+                    error={validator.errors.password}
+                    secureTextEntry
+                    onBlur={() => validator.setFieldTouched("password")}
+                    stateOnBlur={validator.touched.password}
+                    icon={assetsIcons.padlock}
+                  />
+                  <CustomButton
+                    text={`${t("common:login")}`}
+                    //disable={!validator.isValid}
+                    onPress={validator.handleSubmit}
+                  />
+                  <CustomLink
+                    text={` ${t("common:noAccount")} `}
+                    onPress={() => navigation.navigate("UserRegister")}
+                  />
+                  <CustomLink
+                    text={` ${t("common:forgotPassword")} `}
+                    onPress={() => setResetPassword(true)}
+                  />
+                </>
+              ) : (
+                <>
+                  <Text
+                    style={[
+                      GeneralStyles.textDescription,
+                      {
+                        textAlign: "center",
+                        marginVertical: 10,
+                      },
+                    ]}
+                  >
+                    {t("common:enterEmail")}
+                  </Text>
+                  <CustomTextInput
+                    value={emailToReset}
+                    onChangeValue={(text) =>
+                      setEmailToReset(text.replace(" ", ""))
+                    }
+                    textPlaceholder={`${t("common:email")}`}
+                    icon={assetsIcons.email}
+                  />
+                  <CustomButton
+                    text={`${t("common:reset")}`}
+                    onPress={() => sendEmailOnReset(emailToReset)}
+                  />
+                  <CustomLink
+                    text={` ${t("common:cancel")} `}
+                    onPress={() => setResetPassword(false)}
+                  />
+                </>
+              )}
             </View>
             <View style={GeneralStyles.footer}>
               <Text style={GeneralStyles.textDescription} numberOfLines={2}>
-                Todos los derechos reservados y pertenecientes a la Universidad
-                Tecnica Particular de Loja.
+                {t("common:allRightsReserved")}
               </Text>
             </View>
           </View>

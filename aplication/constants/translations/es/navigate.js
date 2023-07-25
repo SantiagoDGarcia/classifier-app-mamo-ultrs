@@ -1,4 +1,6 @@
 export default {
-  home: "Home!",
-  settings: "Settings",
+  profile: "Mi perfil",
+  history: "Historial",
+  analysis: "Análisis",
+  help: "Ayuda",
 };

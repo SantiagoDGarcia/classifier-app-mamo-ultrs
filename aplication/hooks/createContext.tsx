@@ -6,8 +6,12 @@ interface contextProps {
     isLoading: boolean | null,
     setMaskImg: (e: boolean | null) => void
   ];
-  // createdAt: Date | null,
-  // organization: string | null
+  activatedFullScreen: [
+    activatedFullScreen: boolean | null,
+    setActivatedFullScreen: (e: boolean | null) => void,
+    fullScreenIndex: number | null,
+    setFullScreenIndex: (e: number | null) => void
+  ];
 }
 
 const AppContext = createContext<contextProps | null>(null);

@@ -1,6 +1,6 @@
 import { Platform, StyleSheet, StatusBar, Dimensions } from "react-native";
-import { COLORS } from "./theme";
-import { SIZES } from "./theme";
+import { Colo, ColorsTheme } from "./theme";
+import { SizesTheme } from "./theme";
 
 const STATUSBAR_HEIGHT = StatusBar.currentHeight;
 
@@ -27,7 +27,7 @@ export const GeneralStyles = StyleSheet.create({
         paddingBottom: "12%",
       },
       android: {
-        width: "100%",
+        width: "95%",
         paddingBottom: "7%",
       },
     }),
@@ -39,7 +39,7 @@ export const GeneralStyles = StyleSheet.create({
   },
   logotipeText: {
     padding: 5,
-    fontSize: SIZES.normal,
+    fontSize: SizesTheme.normal,
     textShadowOffset: { width: -1, height: 1 },
     textShadowRadius: 1,
     fontWeight: "bold",
@@ -51,12 +51,12 @@ export const GeneralStyles = StyleSheet.create({
   },
   labelTitle: {
     fontSize: 15 + 1,
-    color: COLORS.primary,
+    color: ColorsTheme.primary,
     margin: 25,
   },
   labelSubtitle: {
     fontSize: 15 - 1,
-    color: COLORS.primary,
+    color: ColorsTheme.primary,
   },
   infoText: {
     overflow: "hidden",
@@ -73,7 +73,7 @@ export const GeneralStyles = StyleSheet.create({
     }),
   },
   borderContainer: {
-    borderColor: COLORS.primary,
+    borderColor: ColorsTheme.primary,
     overflow: "hidden",
     borderWidth: 1,
     borderRadius: 7,
@@ -96,13 +96,13 @@ export const GeneralStyles = StyleSheet.create({
     minWidth: "50%",
     alignItems: "center",
     alignSelf: "center",
-    color: COLORS.primary,
+    color: ColorsTheme.primary,
     fontSize: 15,
     margin: 7,
   },
   rowTextContainer: {
     flexDirection: "row",
-    marginBottom: 10,
+    minHeight: 40,
     alignItems: "center",
   },
   rowTextIcon: {
@@ -131,7 +131,7 @@ export const LoginStyles = StyleSheet.create({
 // Navbar
 export const NavStyles = StyleSheet.create({
   navContainer: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: ColorsTheme.primary,
     justifyContent: "center",
     height: 70,
   },
@@ -178,7 +178,7 @@ export const NavStyles = StyleSheet.create({
 // Hist
 export const HistStyles = StyleSheet.create({
   navBar: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: ColorsTheme.primary,
     height: 60,
     marginTop: STATUSBAR_HEIGHT,
     justifyContent: "center",
@@ -187,19 +187,40 @@ export const HistStyles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  subLeftContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "50%",
+  },
+  subRightContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "40%",
+  },
   images: {
-    width: 66,
-    height: 66,
-    borderColor: COLORS.primary,
+    width: 80,
+    height: 80,
+    borderColor: ColorsTheme.primary,
     borderWidth: 1,
     borderRadius: 7,
   },
   labelStats: {
-    fontSize: SIZES.small,
+    fontSize: SizesTheme.small,
   },
   infoStats: {
-    fontSize: SIZES.small,
-    color: COLORS.primary,
+    fontSize: SizesTheme.small,
+    color: ColorsTheme.primary,
+  },
+  infoContainer: {
+    width: "50%",
+    justifyContent: "space-around",
+    flex: 1,
+  },
+  imagesContainer: {
+    flexDirection: "row",
+    width: "35%",
+    justifyContent: "space-between",
+    paddingRight: "4%",
   },
 });
 
@@ -210,11 +231,52 @@ export const AnalysisStyles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  resultsContainer: {
+  imgContainer: {
+    alignSelf: "center",
+    justifyContent: "center",
+    marginBottom: 30,
+  },
+  imgsContainer: {
     width: "100%",
     justifyContent: "center",
     flexDirection: "row",
     marginBottom: 30,
+  },
+});
+
+// Test
+export const TestStyles = StyleSheet.create({
+  selectImage: {
+    width: 230,
+    height: 230,
+    margin: 25,
+    backgroundColor: "#FFF8F7",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  infoContainer: {
+    width: "100%",
+    marginTop: 15,
+    justifyContent: "space-between",
+  },
+  cancelIcon: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+  },
+  imagePreview: {
+    width: 230,
+    height: 230,
+    opacity: 0.5,
+  },
+  checkContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+    marginBottom: 25,
   },
 });
 
@@ -229,24 +291,26 @@ export const AlertStyles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.05)",
   },
   subContainer: {
     backgroundColor: "white",
     padding: 20,
-    borderColor: COLORS.tertiary,
+    borderColor: ColorsTheme.tertiary,
     borderWidth: 1,
     borderRadius: 7,
     shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 1,
     shadowRadius: 3,
     ...Platform.select({
       ios: {
         elevation: 0,
         shadowColor: "#5E5C5C",
+        shadowOpacity: 0.5,
       },
       android: {
         elevation: 10,
         shadowColor: "#171717",
+        shadowOpacity: 1,
       },
     }),
   },
@@ -265,21 +329,22 @@ export const CardStyles = StyleSheet.create({
   },
   container: {
     backgroundColor: "white",
-    borderColor: COLORS.primary,
+    borderColor: ColorsTheme.primary,
     borderWidth: 1,
     width: "80%",
     shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 1,
     shadowRadius: 3,
     borderRadius: 8,
     ...Platform.select({
       ios: {
         elevation: 0,
         shadowColor: "#5E5C5C",
+        shadowOpacity: 0.5,
       },
       android: {
         elevation: 10,
         shadowColor: "#171717",
+        shadowOpacity: 1,
       },
     }),
   },
@@ -288,7 +353,7 @@ export const CardStyles = StyleSheet.create({
     height: Dimensions.get("window").height * 0.25,
     opacity: 0.9,
     borderRadius: 7,
-    borderColor: COLORS.primary,
+    borderColor: ColorsTheme.primary,
     borderWidth: 1,
   },
   titleRight: {
@@ -297,9 +362,9 @@ export const CardStyles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     borderRadius: 8,
-    borderColor: COLORS.primary,
+    borderColor: ColorsTheme.primary,
     borderWidth: 1,
-    backgroundColor: COLORS.primary,
+    backgroundColor: ColorsTheme.primary,
     //
     position: "absolute",
     overflow: "hidden",
@@ -314,9 +379,9 @@ export const CardStyles = StyleSheet.create({
     fontSize: 15,
     color: "black",
     borderRadius: 8,
-    borderColor: COLORS.primary,
+    borderColor: ColorsTheme.primary,
     borderWidth: 1,
-    backgroundColor: COLORS.primary,
+    backgroundColor: ColorsTheme.primary,
     overflow: "hidden",
     //
     position: "absolute",
@@ -341,7 +406,7 @@ export const TextInputsStyles = StyleSheet.create({
   textInput: {
     paddingHorizontal: 7,
     borderBottomWidth: 1,
-    borderBottomColor: COLORS.primary,
+    borderBottomColor: ColorsTheme.primary,
     margin: 16,
     width: "90%",
     backgroundColor: "white",
@@ -364,5 +429,45 @@ export const TextInputsStyles = StyleSheet.create({
   icon: {
     width: 12,
     height: 12,
+  },
+});
+
+export const FullScreenStyles = StyleSheet.create({
+  exitIconContainer: {
+    margin: 5,
+    ...Platform.select({
+      ios: {
+        marginTop: 50,
+      },
+      android: {
+        marginTop: 12,
+      },
+    }),
+    height: "auto",
+    width: "auto",
+    justifyContent: "center",
+    backgroundColor: "#000000",
+    borderRadius: 100,
+    position: "absolute",
+    zIndex: 2,
+    right: 0,
+  },
+  exitIcon: {
+    width: 30,
+    height: 30,
+  },
+  maximizeIconContainer: {
+    margin: 5,
+    height: "auto",
+    width: "auto",
+    justifyContent: "center",
+    position: "absolute",
+    zIndex: 2,
+    right: 0,
+    bottom: 0,
+  },
+  maximizeIcon: {
+    width: 30,
+    height: 30,
   },
 });

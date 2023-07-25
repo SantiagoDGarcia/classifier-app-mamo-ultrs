@@ -15,7 +15,7 @@ export default function CustomRowText({
   return (
     <View style={GeneralStyles.rowTextContainer}>
       <Image source={iconSource} style={GeneralStyles.rowTextIcon} />
-      <View style={{ width: "36%" }}>
+      <View style={{ width: "40%" }}>
         <Text style={GeneralStyles.labelSubtitle}>{label}</Text>
       </View>
       <View style={{ width: "50%", flex: 1 }}>

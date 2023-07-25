@@ -1,7 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-// Custom components
 import { CustomNavHeader } from "../components/";
-// Screens
 import { AnalysisScreen, ResultsScreen, TestScreen } from "../screens/";
 import { AnalysisNavigatorParamList } from "./types";
 
@@ -11,29 +9,35 @@ export default function AnalysisNavigation() {
   return (
     <TabStack.Navigator>
       <TabStack.Screen
-        name={"Analysis"}
+        name="Analysis"
         component={AnalysisScreen}
         options={{
           headerShown: true,
-          header: ({}) => <CustomNavHeader />,
+          header: ({ navigation }) => (
+            <CustomNavHeader navigation={navigation} />
+          ),
         }}
       />
       <TabStack.Screen
-        name={"Test"}
+        name="Test"
         component={TestScreen}
         options={{
           headerBackTitleVisible: false,
           headerTitle: "",
-          header: ({}) => <CustomNavHeader back={true} />,
+          header: ({ navigation }) => (
+            <CustomNavHeader back navigation={navigation} />
+          ),
         }}
       />
       <TabStack.Screen
-        name={"Results"}
+        name="Results"
         component={ResultsScreen}
         options={{
           headerBackTitleVisible: false,
           headerTitle: "",
-          header: ({}) => <CustomNavHeader back={true} />,
+          header: ({ navigation }) => (
+            <CustomNavHeader back navigation={navigation} />
+          ),
         }}
       />
     </TabStack.Navigator>

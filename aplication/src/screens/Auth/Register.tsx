@@ -25,6 +25,7 @@ import { assetsIcons } from "../../../constants";
 import { registerUserAuth } from "../../services";
 import { useContext } from "react";
 import AppContext from "../../../hooks/createContext";
+import { useTranslation } from "react-i18next";
 /*
 type props ={
   ((email: string, password: string, name: string, history: any) => Promise<void>)[]
@@ -35,6 +36,7 @@ export default function RegisterScreen({ navigation }: any) {
   const {
     isLoading: [loading, setLoading],
   } = useContext(AppContext)!;
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -50,20 +52,18 @@ export default function RegisterScreen({ navigation }: any) {
       organization: false,
     },
     validationSchema: Yup.object({
-      name: Yup.string().required("Ingrese su nombre."),
+      name: Yup.string().required(`${t("alert:enterName")}`),
       email: Yup.string()
-        .email("Correo electrónico inválido. Verifique")
-        .required("Ingrese su correo electrónico."),
+        .email(`${t("alert:invalidEmail")}`)
+        .required(`${t("alert:enterEmail")}`),
       password: Yup.string()
         .matches(
           /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^.&_()/*-]).{8,}$/,
-          "La contraseña debe contener al menos 8 caracteres, una letra mayuscula, una letra minuscula y un caracter especial."
+          `${t("alert:passwordRequirements")}`
         )
         .min(8)
-        .required("Ingrese la contraseña."),
-      organization: Yup.string().required(
-        "Ingrese la organización a la que pertenece."
-      ),
+        .required(`${t("alert:enterPassword")}`),
+      organization: Yup.string().required(`${t("alert:enterOrganization")}`),
     }),
     onSubmit: (values) => {
       setLoading(true);
@@ -85,7 +85,12 @@ export default function RegisterScreen({ navigation }: any) {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={LoginStyles.LoginSubContainer}
       >
-        {loading && <CustomActivityIndicator actionText="Espere..." />}
+        {loading && (
+          <CustomActivityIndicator
+            actionText={t("common:wait")}
+            indicatorActive={loading}
+          />
+        )}
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
           style={{ flex: 1 }}
@@ -99,13 +104,13 @@ export default function RegisterScreen({ navigation }: any) {
               }}
             >
               <Text style={GeneralStyles.textDescription}>
-                Completa todos los campos para registrarse.
+                {t("common:completeAllFields")}
               </Text>
             </View>
             <CustomTextInput
               value={formik.values.name}
               onChangeValue={(text) => formik.setFieldValue("name", text)}
-              textPlaceholder={"Nombre"}
+              textPlaceholder={`${t("common:name")}`}
               error={formik.errors.name}
               onBlur={() => formik.setFieldTouched("name")}
               stateOnBlur={formik.touched.name}
@@ -116,7 +121,7 @@ export default function RegisterScreen({ navigation }: any) {
               onChangeValue={(text) =>
                 formik.setFieldValue("email", text.replace(" ", ""))
               }
-              textPlaceholder={"Correo electrónico"}
+              textPlaceholder={`${t("common:email")}`}
               error={formik.errors.email}
               onBlur={() => formik.setFieldTouched("email")}
               stateOnBlur={formik.touched.email}
@@ -125,7 +130,7 @@ export default function RegisterScreen({ navigation }: any) {
             <CustomTextInput
               value={formik.values.password}
               onChangeValue={(text) => formik.setFieldValue("password", text)}
-              textPlaceholder={"Contraseña"}
+              textPlaceholder={`${t("common:password")}`}
               error={formik.errors.password}
               secureTextEntry={true}
               onBlur={() => formik.setFieldTouched("password")}
@@ -137,26 +142,29 @@ export default function RegisterScreen({ navigation }: any) {
               onChangeValue={(text) =>
                 formik.setFieldValue("organization", text)
               }
-              textPlaceholder={"Organización"}
+              textPlaceholder={`${t("common:organization")}`}
               error={formik.errors.organization}
               onBlur={() => formik.setFieldTouched("organization")}
               stateOnBlur={formik.touched.organization}
               icon={assetsIcons.organization}
             />
-            <CustomButton text="Registrarse" onPress={formik.handleSubmit} />
+            <CustomButton
+              text={`${t("common:register")}`}
+              onPress={formik.handleSubmit}
+            />
             <CustomLink
-              text=" ¿Ya tienes cuenta? Inicia sesión."
+              text={` ${t("common:alreadyHaveAccount")} `}
               onPress={() => navigation.navigate("UserLogin")}
             />
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
       {/* <View style={[GeneralStyles.subContainer, { flex: 1 }]}>
-        <Text style={GeneralStyles.textDescription}>
-          Todos los derechos reservados y pertenecientes a la Universidad
-          Tecnica Particular de Loja.
-        </Text>
-      </View> */}
+    <Text style={GeneralStyles.textDescription}>
+      Todos los derechos reservados y pertenecientes a la Universidad
+      Tecnica Particular de Loja.
+    </Text>
+  </View> */}
     </SafeAreaView>
   );
 }

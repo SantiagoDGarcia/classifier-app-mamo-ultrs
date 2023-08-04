@@ -1,17 +1,11 @@
-import { Text, View, ImageSourcePropType, Image } from "react-native";
-import { GeneralStyles } from "../../constants";
-
-type defaultProps = {
-  label?: string;
-  description?: string;
-  iconSource: ImageSourcePropType;
-};
+import { Text, View, Image } from "react-native";
+import { GeneralStyles } from "../../assets";
 
 export default function CustomRowText({
   label,
   description,
   iconSource,
-}: defaultProps) {
+}: CustomRowTextProps) {
   return (
     <View style={GeneralStyles.rowTextContainer}>
       <Image source={iconSource} style={GeneralStyles.rowTextIcon} />

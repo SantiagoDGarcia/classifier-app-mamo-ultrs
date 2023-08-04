@@ -6,11 +6,8 @@ import {
   ImageBackground,
   SafeAreaView,
 } from "react-native";
-import {
-  CustomDividerText,
-  CustomDivider,
-} from "../../components/CustomDivider";
-import { assetsIcons, GeneralStyles } from "../../../constants";
+import { CustomDividerText, CustomDivider } from "../../components";
+import { assetsIcons, GeneralStyles } from "../../../assets";
 import HelpContent from "./HelpContent";
 export default function HelpScreen() {
   const data = HelpContent();

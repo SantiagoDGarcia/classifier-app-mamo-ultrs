@@ -1,19 +1,12 @@
 import {
   Text,
   View,
-  Image,
-  Alert,
   SafeAreaView,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
 } from "react-native";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-
-import { GeneralStyles, LoginStyles } from "../../../constants/styles";
-// Custom components
 import {
   CustomActivityIndicator,
   CustomButton,
@@ -21,21 +14,22 @@ import {
   CustomLogoMedium,
   CustomTextInput,
 } from "../../components";
-import { assetsIcons } from "../../../constants";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { assetsIcons, GeneralStyles, LoginStyles } from "../../../assets";
 import { registerUserAuth } from "../../services";
 import { useContext } from "react";
-import AppContext from "../../../hooks/createContext";
+import AppContext from "../../hooks/createContext";
 import { useTranslation } from "react-i18next";
-/*
-type props ={
-  ((email: string, password: string, name: string, history: any) => Promise<void>)[]
-}
-*/
+import { useNavigation } from "@react-navigation/native";
+import { RegisterScreenNavigationProp } from "../../navigation/types";
 
-export default function RegisterScreen({ navigation }: any) {
+export default function RegisterScreen() {
   const {
     isLoading: [loading, setLoading],
   } = useContext(AppContext)!;
+  const navigation = useNavigation<RegisterScreenNavigationProp>();
+
   const { t } = useTranslation();
 
   const formik = useFormik({

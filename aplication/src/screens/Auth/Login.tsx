@@ -12,8 +12,7 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import { GeneralStyles, LoginStyles } from "../../../constants/styles";
-// Custom components
+import { GeneralStyles, LoginStyles, assetsIcons } from "../../../assets";
 import {
   CustomButton,
   CustomLink,
@@ -21,15 +20,17 @@ import {
   CustomLogo,
   CustomActivityIndicator,
 } from "../../components";
-import { assetsIcons } from "../../../constants";
-import AppContext from "../../../hooks/createContext";
+import AppContext from "../../hooks/createContext";
 import { loginUser, sendEmailOnReset } from "../../services";
 import { useTranslation } from "react-i18next";
+import { useNavigation } from "@react-navigation/native";
+import { LoginScreenNavigationProp } from "../../navigation/types";
 
-export default function LoginScreen({ navigation }: any) {
+export default function LoginScreen() {
   const {
     isLoading: [loading, setLoading],
   } = useContext(AppContext)!;
+  const navigation = useNavigation<LoginScreenNavigationProp>();
 
   const [resetPassword, setResetPassword] = useState(false);
   const [emailToReset, setEmailToReset] = useState("");

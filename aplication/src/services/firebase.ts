@@ -1,32 +1,3 @@
-import { initializeApp } from "firebase/app";
-import {
-  DocumentSnapshot,
-  getDocs,
-  getFirestore,
-  orderBy,
-  query,
-  QuerySnapshot,
-} from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-//import database from 'firebase/database';
-import {
-  EmailAuthProvider,
-  onAuthStateChanged,
-  reauthenticateWithCredential,
-  signOut,
-  updatePassword,
-} from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useContext, useEffect } from "react";
-import AppContext from "../../hooks/createContext";
-import {
-  AuthErrorCodes,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
-import { collection, setDoc, doc, getDoc } from "firebase/firestore";
-import { useNavigation } from "@react-navigation/native";
-
 import {
   REACT_APP_FIREBASE_APIKEY,
   REACT_APP_FIREBASE_APPID,
@@ -36,6 +7,39 @@ import {
   REACT_APP_FIREBASE_PROJECTID,
   REACT_APP_FIREBASE_STORAGEBUCKET,
 } from "@env";
+
+import {
+  DocumentSnapshot,
+  getDocs,
+  getFirestore,
+  orderBy,
+  query,
+  QuerySnapshot,
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+//import database from 'firebase/database';
+import {
+  getAuth,
+  EmailAuthProvider,
+  onAuthStateChanged,
+  reauthenticateWithCredential,
+  signOut,
+  updatePassword,
+  verifyPasswordResetCode,
+  confirmPasswordReset,
+  AuthErrorCodes,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { initializeApp } from "firebase/app";
+
+import { useContext, useEffect } from "react";
+import AppContext from "../hooks/createContext";
+import { useNavigation } from "@react-navigation/native";
 import { showAlert, timeConverter } from "../helpers";
 import { t } from "i18next";
 
@@ -50,6 +54,8 @@ const firebaseConfig = {
   appId: REACT_APP_FIREBASE_APPID,
   measurementId: REACT_APP_FIREBASE_MEASUREMENTID,
 };
+
+const timeout = 6;
 export const fireb = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(fireb);
@@ -63,13 +69,9 @@ const appCheck = initializeAppCheck(fireb, {
 });
 */
 export function logOut(): void {
-  signOut(auth)
-    .then(() => {
-      console.log("User logout | ");
-    })
-    .catch((error) => {
-      console.error("ERROR LOGOUT ", error);
-    });
+  signOut(auth).catch((error) => {
+    showAlert(`${t("alert:errorGeneric")}`);
+  });
 }
 
 export function observerAuth(): void {
@@ -102,8 +104,57 @@ export function observerAuth(): void {
   }, []);
 }
 
+export function sendEmailPasswordCode(
+  email: string,
+  code: string,
+  newPassword: string
+): void {
+  verifyPasswordResetCode(auth, email)
+    .then((email) => {
+      // El código es válido y el correo electrónico del usuario se ha recuperado
+      return confirmPasswordReset(auth, code, newPassword);
+    })
+    .then(() => {
+      // La contraseña se ha restablecido correctamente
+    })
+    .catch((error) => {
+      // Error al restablecer la contraseña
+    });
+}
+
 export function sendEmailOnReset(email: string): void {
   sendPasswordResetEmail(auth, email)
+    .then(() => {
+      showAlert(`${t("alert:sendingResetPasswordEmail")}`);
+    })
+    .catch((error) => {
+      showAlert(`${t("alert:errorGeneric")}`);
+    });
+}
+
+/*
+export function sendEmailOnReset(email: string): void {
+  const auth = getAuth();
+  const actionCodeSettings = {
+    // URL a la que se redirigirá al usuario después de completar la acción
+    url: "https://mamaclasificator.firebaseapp.com/__/auth/action?mode=resetPassword&oobCode=hfqoJr6b3I3z3bEd4q6aULGZJFx0SEWGNwXcYJCjVNYAAAGI81KgAg&apiKey=AIzaSyBz08ps3YnMp4Z71UadBXqkCca6rmhu0Ao&lang=en",
+    // Esta debe ser verdadera
+    handleCodeInApp: true,
+    // Tu paquete de Android
+    android: {
+      packageName: "com.utpl.mamacheck",
+      installApp: true,
+      minimumVersion: "6",
+    },
+    // Tu identificador de paquete iOS
+    iOS: {
+      bundleId: "com.example.ios",
+    },
+    // El dominio del enlace dinámico utilizado para la aplicación móvil
+    dynamicLinkDomain: "http://www.google.com",
+  };
+
+  sendPasswordResetEmail(auth, email, actionCodeSettings)
     .then(() => {
       showAlert(`${t("alert:sendingResetPasswordEmail")}`);
     })
@@ -111,7 +162,7 @@ export function sendEmailOnReset(email: string): void {
       console.error(error);
     });
 }
-
+*/
 export async function loginUser(
   email: string,
   password: string
@@ -157,17 +208,13 @@ export function registerUserAuth(
   }
   createUserWithEmailAndPassword(auth, email, password)
     .then((user) => {
-      registerUserFirestore(user, email, name, organization)
-        .then((user) => {
-          console.log("Usuario registrado");
-        })
-        .catch((error) => {
-          console.log("Error FIREE", error);
-          throw error;
-        });
+      registerUserFirestore(user, email, name, organization).catch((error) => {
+        showAlert(`${t("alert:errorGeneric")}`);
+        throw error;
+      });
     })
     .catch((error) => {
-      console.log("Error AUTTTT", error);
+      showAlert(`${t("alert:errorGeneric")}`);
       throw error;
     });
 }
@@ -186,13 +233,14 @@ export async function changeUserPassword(
           showAlert(`${t("alert:changePasswordOk")}`);
         })
         .catch((error) => {
-          showAlert("Error");
+          showAlert(`${t("alert:errorGeneric")}`);
         });
     })
     .catch((error) => {
       if (error.code === AuthErrorCodes.INVALID_PASSWORD) {
         showAlert(`${t("alert:errorChangePassword")}`);
       } else {
+        showAlert(`${t("alert:errorGeneric")}`);
         console.log(error);
       }
     });
@@ -203,36 +251,15 @@ export async function getResultData(idResult: string): Promise<any> {
   const docRef = doc(db, "Users", userId, "HistResults", idResult);
 
   const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error("Operation timed out")), 6 * 60 * 1000)
+    setTimeout(
+      () => reject(new Error("Operation timed out")),
+      timeout * 60 * 1000
+    )
   );
   const docSnapPromise = getDoc(docRef);
 
   const result = await Promise.race([docSnapPromise, timeoutPromise]);
-
   return result;
-}
-
-export async function getAllResultsDatal(): Promise<any[]> {
-  const userId = auth.currentUser?.uid!;
-  const getHist = await getDocs(collection(db, "Users", userId, "HistResults"));
-
-  const resultsList: any[] = [];
-  getHist.docs.forEach((doc) => {
-    resultsList.push({
-      idResult: doc.id,
-      url: doc.data().url,
-      typeAnalysis: doc.data().typeAnalysis,
-      dateAnalysis: doc.data().dateAnalysis,
-      imgUrl: doc.data().imgUrl,
-      imgRoiUrl: doc.data().imgRoiUrl,
-      testResult: doc.data().testResult,
-      precision: doc.data().precision,
-      accuracy: doc.data().accuracy,
-      recall: doc.data().recall,
-      f1: doc.data().f1,
-    });
-  });
-  return resultsList;
 }
 
 export async function getAllResultsData(): Promise<any[]> {
@@ -245,7 +272,10 @@ export async function getAllResultsData(): Promise<any[]> {
   );
 
   const timeoutPromise = new Promise((_, reject) =>
-    setTimeout(() => reject(new Error("Operation timed out")), 6 * 60 * 1000)
+    setTimeout(
+      () => reject(new Error("Operation timed out")),
+      timeout * 60 * 1000
+    )
   );
 
   const getHist = (await Promise.race([
@@ -260,13 +290,10 @@ export async function getAllResultsData(): Promise<any[]> {
       url: doc.data()!.url,
       typeAnalysis: doc.data()!.typeAnalysis,
       dateAnalysis: doc.data()!.dateAnalysis,
+      durationAnalysis: doc.data()!.durationAnalysis,
       imgUrl: doc.data()!.imgUrl,
-      imgRoiUrl: doc.data()!.imgRoiUrl,
       testResult: doc.data()!.testResult,
-      precision: doc.data()!.precision,
-      accuracy: doc.data()!.accuracy,
-      recall: doc.data()!.recall,
-      f1: doc.data()!.f1,
+      roiExtracted: doc.data()!.roiExtracted,
     });
   });
   return resultsList;

@@ -1,5 +1,5 @@
 export default {
-  wait: "Wait...",
+  wait: "Waiting...",
   loading: "Loading...",
   closeSession: "Closing session...",
   analyzingImage: "Analyzing image...",
@@ -9,14 +9,11 @@ export default {
   enterEmail: "Enter your email.",
   enterPassword: "Enter your password.",
   enterName: "Enter your name.",
-  enterEmail: "Enter your email.",
   passwordRequirements:
     "The password must contain at least 8 characters, an uppercase letter, a lowercase letter, and a special character.",
   enterOrganization: "Enter the organization you belong to.",
   enterCurrentPassword: "Enter your current password.",
   minimumCharacters: "Minimum of 8 characters required.",
-  passwordRequirements:
-    "The password must contain at least 8 characters, an uppercase letter, a lowercase letter, and a special character.",
   enterNewPassword: "Enter the new password.",
   updatingPassword: "Updating password...",
   errorNoRoiFound:

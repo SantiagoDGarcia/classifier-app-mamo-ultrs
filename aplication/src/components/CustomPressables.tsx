@@ -1,11 +1,5 @@
 import { Pressable, Text } from "react-native";
-import { ColorsTheme, GeneralStyles } from "../../constants";
-
-type CustomPressablesProps = {
-  text: string;
-  onPress?: () => void;
-  disable?: boolean;
-};
+import { ColorsTheme, GeneralStyles } from "../../assets";
 
 export function CustomButton({
   text,

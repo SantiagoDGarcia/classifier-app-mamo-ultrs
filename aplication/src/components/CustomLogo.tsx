@@ -1,10 +1,5 @@
 import { Text, View, Image, SafeAreaView } from "react-native";
-import { GeneralStyles } from "../../constants/styles";
-import { FontsTheme, assetsIcons } from "../../constants";
-
-type CustomLogoProps = {
-  color?: string;
-};
+import { GeneralStyles, FontsTheme, assetsIcons } from "../../assets";
 
 export default function CustomLogo({ color }: CustomLogoProps) {
   return (

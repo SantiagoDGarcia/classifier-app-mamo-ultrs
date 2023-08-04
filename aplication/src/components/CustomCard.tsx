@@ -2,21 +2,12 @@ import {
   Text,
   View,
   TouchableHighlight,
-  ImageSourcePropType,
   Image,
   StyleProp,
   TextStyle,
 } from "react-native";
 import { CustomDivider } from "./CustomDivider";
-import { CardStyles } from "../../constants";
-
-interface CustomCardProps {
-  positionLeft?: boolean;
-  title: string;
-  imgSource: ImageSourcePropType;
-  iconSource: ImageSourcePropType;
-  navigation: any;
-}
+import { CardStyles } from "../../assets";
 
 export default function CustomCard({
   positionLeft,

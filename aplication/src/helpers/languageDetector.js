@@ -2,8 +2,8 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import en from "../../constants/translations/en";
-import es from "../../constants/translations/es";
+import en from "../../assets/translations/en";
+import es from "../../assets/translations/es";
 
 const LANGUAGES = { en, es };
 
@@ -12,14 +12,7 @@ const LANGUAGE_DETECTOR = {
   async: true,
   detect: (callback) => {
     AsyncStorage.getItem("user-language", (err, language) => {
-      // if error fetching stored data or no language was stored
-      // display errors when in DEV mode as console statements
       if (err || !language) {
-        if (err) {
-          console.log("Error fetching Languages from asyncstorage ", err);
-        } else {
-          console.log("No language is set, choosing English as fallback");
-        }
         callback("en");
         return;
       }

@@ -1,7 +1,7 @@
 import { View, StatusBar } from "react-native";
 import React from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ColorsTheme } from "../../constants";
+import { ColorsTheme } from "../../assets";
 
 export default function CustomStatusBar() {
   const insets = useSafeAreaInsets();

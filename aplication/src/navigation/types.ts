@@ -17,10 +17,19 @@ export type AnalysisNavigatorParamList = {
   };
 };
 
+// Define the possible routes and their parameters for the HistNavigator
+export type HistNavigatorParamList = {
+  Hist: undefined;
+  Results: {
+    idResult: string;
+    typeAnalysis: string;
+  };
+};
+
 // Define the possible routes for the bottom tab navigator
 export type BottomTabNavigatorParamList = {
   Profile: undefined;
-  Hist: undefined;
+  HistNav: HistNavigatorParamList;
   AnalysisNav: AnalysisNavigatorParamList;
   Help: undefined;
   UserLogin: undefined;
@@ -34,8 +43,8 @@ export type ProfileScreenNavigationProp = BottomTabNavigationProp<
 >;
 
 export type HistScreenNavigationProp = CompositeNavigationProp<
-  BottomTabNavigationProp<BottomTabNavigatorParamList, "Hist">,
-  NativeStackNavigationProp<AnalysisNavigatorParamList>
+  BottomTabNavigationProp<BottomTabNavigatorParamList, "HistNav">,
+  NativeStackNavigationProp<HistNavigatorParamList>
 >;
 
 export type HelpScreenNavigationProp = BottomTabNavigationProp<
@@ -43,12 +52,12 @@ export type HelpScreenNavigationProp = BottomTabNavigationProp<
   "Help"
 >;
 
-export type UserLoginScreenNavigationProp = BottomTabNavigationProp<
+export type LoginScreenNavigationProp = BottomTabNavigationProp<
   BottomTabNavigatorParamList,
   "UserLogin"
 >;
 
-export type UserRegisterScreenNavigationProp = BottomTabNavigationProp<
+export type RegisterScreenNavigationProp = BottomTabNavigationProp<
   BottomTabNavigatorParamList,
   "UserRegister"
 >;

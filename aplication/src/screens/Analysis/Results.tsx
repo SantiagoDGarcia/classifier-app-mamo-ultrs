@@ -7,20 +7,19 @@ import {
   FlatList,
   Image,
 } from "react-native";
-import { AnalysisStyles, GeneralStyles } from "../../../constants";
-import { CustomDivider } from "../../components/CustomDivider";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { ResultsScreenRouteProp } from "../../navigation/types";
-import { ColorsTheme } from "../../../constants";
-import { getResultData } from "../../services";
 import {
   CustomActivityIndicator,
   CustomFullScreenImage,
   CustomHorizontalRow,
+  CustomDivider,
 } from "../../components";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { ResultsScreenRouteProp } from "../../navigation/types";
+import { getResultData } from "../../services";
 import { ResultsScreenNavigationProp } from "../../navigation/types";
+import { AnalysisStyles, GeneralStyles, ColorsTheme } from "../../../assets";
 import { useTranslation } from "react-i18next";
-import { showAlert, timeConverter } from "../../helpers";
+import { getDurationAnalysis, showAlert, timeConverter } from "../../helpers";
 
 export default function ResultsScreen() {
   const navigation = useNavigation<ResultsScreenNavigationProp>();
@@ -134,7 +133,8 @@ export default function ResultsScreen() {
                   isText
                   label={t("common:duration")!}
                   description={
-                    resultData.durationAnalysis + t("common:minutes")!
+                    getDurationAnalysis(resultData.durationAnalysis) +
+                    t("common:approx")
                   }
                 />
               </View>

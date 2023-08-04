@@ -10,14 +10,11 @@ export default {
   enterEmail: "Ingrese su correo electrónico.",
   enterPassword: "Ingrese su contraseña.",
   enterName: "Ingrese su nombre.",
-  enterEmail: "Ingrese su correo electrónico.",
   passwordRequirements:
     "La contraseña debe contener al menos 8 caracteres, una letra mayuscula, una letra minuscula y un caracter especial.",
   enterOrganization: "Ingrese la organización a la que pertenece.",
   enterCurrentPassword: "Ingrese su actual contraseña.",
   minimumCharacters: "Se requiere mínimo 8 caracteres.",
-  passwordRequirements:
-    "La contraseña debe contener al menos 8 caracteres, una letra mayuscula, una letra minuscula y un caracter especial.",
   enterNewPassword: "Ingrese la nueva contraseña.",
   updatingPassword: "Actualizando contraseña...",
   errorNoRoiFound:

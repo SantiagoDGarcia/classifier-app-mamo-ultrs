@@ -19,7 +19,9 @@ export async function analizeImage(
   extract_roi: boolean,
   source: any
 ): Promise<any> {
-  const userId = auth.currentUser!.uid;
+  const authToken = await auth.currentUser!.getIdToken(/* forceRefresh */ true);
+
+  await new Promise((resolve) => setTimeout(resolve, 3000));
 
   // Create a new FormData object
   let formdata = new FormData();
@@ -32,8 +34,6 @@ export async function analizeImage(
     uri: source.assets[0].uri,
     type: source.assets[0].type + "/" + extension,
   };
-  // Append the userId parameter to the FormData object
-  formdata.append("userId", userId);
 
   // Append the photo to the FormData object
   formdata.append("file", {
@@ -41,12 +41,13 @@ export async function analizeImage(
     name: `image.${extension}`,
     type: photo.type,
   });
-
+  console.log("URL ", urlApi(type, extract_roi));
   // Make a POST request to the API with the FormData as the body
   return fetch(urlApi(type, extract_roi), {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${authToken}`,
     },
     body: formdata,
   })
@@ -56,6 +57,6 @@ export async function analizeImage(
     })
     .catch((err) => {
       console.log("Error al cargar solicitud", err);
-      return new Error(err);
+      return new Error("Error");
     });
 }

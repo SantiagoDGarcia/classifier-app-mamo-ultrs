@@ -1,23 +1,10 @@
-import {
-  Text,
-  View,
-  TouchableHighlight,
-  Image,
-  FlatList,
-  SafeAreaView,
-} from "react-native";
+import { Text, View, FlatList, SafeAreaView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { HistScreenNavigationProp } from "../../navigation/types";
 import { useEffect, useState } from "react";
-import {
-  CustomActivityIndicator,
-  CustomDividerText,
-  CustomDivider,
-} from "../../components";
-import { GeneralStyles, HistStyles, ColorsTheme } from "../../../constants";
+import { CustomActivityIndicator, CustomListItemHist } from "../../components";
+import { GeneralStyles } from "../../../assets";
 import { getAllResultsData } from "../../services";
-import { timeConverter } from "../../helpers";
-import FastImage from "react-native-fast-image";
 import { useTranslation } from "react-i18next";
 
 export default function HistScreen() {
@@ -61,91 +48,9 @@ export default function HistScreen() {
                   {t("common:noHistResults")}
                 </Text>
               }
-              renderItem={({ item }) => {
-                var thisType =
-                  item.typeAnalysis == "U"
-                    ? t("common:ultrasound")
-                    : t("common:mammography");
-                return (
-                  <TouchableHighlight
-                    onPress={() =>
-                      navigation.navigate("Results", {
-                        idResult: item.idResult,
-                        typeAnalysis: thisType,
-                      })
-                    }
-                    underlayColor={ColorsTheme.tertiary}
-                  >
-                    <View style={{ paddingTop: 15 }}>
-                      <View style={{ flexDirection: "row" }}>
-                        <View style={HistStyles.imagesContainer}>
-                          <Image
-                            source={{
-                              uri: item.imgUrl,
-                              //priority: FastImage.priority.normal,
-                            }}
-                            style={HistStyles.images}
-                          />
-                        </View>
-                        <View style={HistStyles.infoContainer}>
-                          <View
-                            style={[HistStyles.container, { marginBottom: 5 }]}
-                          >
-                            <Text style={GeneralStyles.labelSubtitle}>
-                              {t("common:results")}
-                            </Text>
-                            <Text
-                              style={[
-                                GeneralStyles.infoText,
-                                {
-                                  backgroundColor:
-                                    item.testResult === "B"
-                                      ? ColorsTheme.positiveResult
-                                      : ColorsTheme.negativeResult,
-                                },
-                              ]}
-                            >
-                              {item.testResult === "B"
-                                ? t("common:benign")
-                                : t("common:malignant")}
-                            </Text>
-                          </View>
-                          <View style={HistStyles.container}>
-                            <View style={HistStyles.subLeftContainer}>
-                              <Text style={HistStyles.labelStats}>
-                                {t("common:roiExtracted")}:
-                              </Text>
-                            </View>
-                            <View style={HistStyles.subRightContainer}>
-                              <Text style={HistStyles.infoStats}>SI</Text>
-                            </View>
-                          </View>
-                          <View style={HistStyles.container}>
-                            <View style={HistStyles.subLeftContainer}>
-                              <Text style={HistStyles.labelStats}>
-                                {t("common:durationAnalysis")}:
-                              </Text>
-                            </View>
-                            <View style={HistStyles.subRightContainer}>
-                              <Text style={HistStyles.infoStats}>
-                                Menos de 1 min.
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                      <View style={[HistStyles.container, { marginTop: 8 }]}>
-                        <CustomDividerText
-                          positionLeft={true}
-                          text={thisType}
-                        />
-                        <Text>{timeConverter(item.dateAnalysis)}</Text>
-                      </View>
-                      <CustomDivider />
-                    </View>
-                  </TouchableHighlight>
-                );
-              }}
+              renderItem={({ item }) => (
+                <CustomListItemHist item={item} navigation={navigation} t={t} />
+              )}
             />
           </View>
         </View>

@@ -14,6 +14,9 @@ export default {
   completeFieldsToResetPassword:
     "Completa los campos para reiniciar la contraseña",
   logout: "Cerrar sesión",
+  spanish: "Español",
+  english: "Ingles",
+  selectLanguage: "Selecciona el idioma",
   // Login
   enterEmail: "Escribe tu correo electronico para restablecer la contraseña.",
   currentPassword: "Contraseña actual",
@@ -29,10 +32,6 @@ export default {
     "Todos los derechos reservados y pertenecientes a la Universidad Tecnica Particular de Loja.",
   // Register
   completeAllFields: "Completa todos los campos para registrarse.",
-  name: "Nombre",
-  email: "Correo electrónico",
-  password: "Contraseña",
-  organization: "Organización",
   register: "Registrarse",
   alreadyHaveAccount: "¿Ya tienes cuenta? Inicia sesión.",
   // Hist
@@ -65,7 +64,7 @@ export default {
   cant: "Cantidad",
   yes: "Si",
   no: "No",
-  minutes: " min.",
+  approx: " aprox",
   // Help
   whatIsROI: "¿Qué significa ROI (Región de Interés)?",
   roiDescription:

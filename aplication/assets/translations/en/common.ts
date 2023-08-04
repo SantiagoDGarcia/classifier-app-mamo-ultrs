@@ -13,6 +13,9 @@ export default {
   changePassword: "Change password.",
   completeFieldsToResetPassword: "Complete the fields to reset the password",
   logout: "Log out",
+  spanish: "Spanish",
+  english: "English",
+  selectLanguage: "Select the language",
   // Login
   enterEmail: "Enter your email to reset your password.",
   currentPassword: "Current password",
@@ -28,16 +31,13 @@ export default {
     "All rights reserved and belonging to the Universidad Tecnica Particular de Loja.",
   // Register
   completeAllFields: "Complete all fields to register.",
-  name: "Name",
-  email: "Email",
-  password: "Password",
-  organization: "Organization",
   register: "Register",
   alreadyHaveAccount: "Already have an account? Log in.",
   // Hist
   previousAnalysisHistory: "Previous analysis history",
   results: "Results",
   noHistResults: "No previous information.",
+  durationAnalysis: "Analysis duration",
   // Test
   extractMasksAndRegionsOfInterest: "Extract masks and regions of interest",
   loadImage: "Load image",
@@ -64,7 +64,7 @@ export default {
   cant: "Quantity",
   yes: "Yes",
   no: "No",
-  minutes: " min.",
+  approx: " approx",
   // Help
   whatIsROI: "What does ROI (Region of Interest) mean?",
   roiDescription:

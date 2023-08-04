@@ -7,7 +7,7 @@ import {
   Image,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { GeneralStyles, TestStyles } from "../../../constants/styles";
+import { GeneralStyles, TestStyles, ColorsTheme } from "../../../assets";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   CustomDivider,
@@ -21,7 +21,6 @@ import {
   TestScreenRouteProp,
 } from "../../navigation/types";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { ColorsTheme } from "../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
 import { analizeImage } from "../../services";
 import { showAlert } from "../../helpers";
@@ -54,7 +53,7 @@ export default function TestScreen() {
       setLoading(true);
       response = await analizeImage(typeAnalysis, extractRoi, imgSelected);
       if (response instanceof Error) {
-        showAlert(response.toString());
+        showAlert(`${t("alert:errorGeneric")}`);
       } else {
         console.log(response);
         if (response.result == "ERROR") {

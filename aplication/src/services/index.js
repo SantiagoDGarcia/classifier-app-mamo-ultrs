@@ -8,6 +8,7 @@ export {
   changeUserPassword,
   getResultData,
   getAllResultsData,
+  sendEmailPasswordCode,
 } from "./firebase";
 
 // Evaluate

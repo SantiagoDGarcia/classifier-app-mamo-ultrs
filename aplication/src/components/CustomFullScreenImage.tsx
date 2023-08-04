@@ -5,17 +5,11 @@ import {
   FullScreenStyles,
   GeneralStyles,
   assetsIcons,
-} from "../../constants";
+} from "../../assets";
 import { Modal } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { useContext } from "react";
-import AppContext from "../../hooks/createContext";
-
-type CustomFullScreenLayerProps = {
-  uri: string[];
-  size: number;
-  indexImage: number;
-};
+import AppContext from "../hooks/createContext";
 
 export default function CustomFullScreenLayer({
   uri,

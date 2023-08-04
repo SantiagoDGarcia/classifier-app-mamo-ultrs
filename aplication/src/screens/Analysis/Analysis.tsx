@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GeneralStyles, assetsIcons, assetsImages } from "../../../constants";
+import { GeneralStyles, assetsIcons, assetsImages } from "../../../assets";
 import { CustomCard } from "../../components";
 import { AnalysisScreenNavigationProp } from "../../navigation/types";
 import { useNavigation } from "@react-navigation/native";
-import { initReactI18next, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 export default function AnalysisScreen() {
   const navigation = useNavigation<AnalysisScreenNavigationProp>();

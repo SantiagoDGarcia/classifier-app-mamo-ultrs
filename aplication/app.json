@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MamaCheck",
-    "slug": "MamaCheck",
+    "slug": "AppClassificationMama",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/img/IconBase.png",
@@ -11,24 +11,25 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "The app only accesses your photos to load a image to test."
+          "photosPermission": "The app only access your photos to load a image to test."
         }
       ]
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.utpl.mamacheck"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/img/LogoBase.png",
-        "backgroundColor": "black"
-      }
+      "package": "com.utpl.mamacheck",
+      "permissions": ["android.permission.READ_EXTERNAL_STORAGE"]
     },
     "androidNavigationBar": {
       "backgroundColor": "#C45942"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "extra": {
+      "eas": {
+        "projectId": "855f88ba-c300-4881-990f-334ca6df20a1"
+      }
     }
   }
 }

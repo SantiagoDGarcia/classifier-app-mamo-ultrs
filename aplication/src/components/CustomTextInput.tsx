@@ -1,22 +1,5 @@
-import {
-  ImageSourcePropType,
-  TextInput,
-  Text,
-  View,
-  Image,
-} from "react-native";
-import { ColorsTheme, TextInputsStyles } from "../../constants";
-
-type CustomTextInputProps = {
-  value: string;
-  onChangeValue: (text: string) => void;
-  textPlaceholder: string;
-  secureTextEntry?: boolean;
-  onBlur?: any;
-  stateOnBlur?: boolean;
-  error?: string;
-  icon?: ImageSourcePropType;
-};
+import { TextInput, Text, View, Image } from "react-native";
+import { ColorsTheme, TextInputsStyles } from "../../assets";
 
 export default function CustomTextInput({
   value,

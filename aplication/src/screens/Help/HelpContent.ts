@@ -1,11 +1,5 @@
 import { useTranslation } from "react-i18next";
 
-type ItemData = {
-  id: number;
-  title: string;
-  description: string;
-};
-
 export default function HelpContent() {
   const { t } = useTranslation();
   const HelpContent: ItemData[] = [

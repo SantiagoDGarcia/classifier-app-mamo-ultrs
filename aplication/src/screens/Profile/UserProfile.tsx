@@ -8,8 +8,6 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import { GeneralStyles } from "../../../constants/styles";
-// Custom components
 import {
   CustomDivider,
   CustomHorizontalRow,
@@ -18,8 +16,8 @@ import {
   CustomActivityIndicator,
   CustomTextInput,
 } from "../../components";
-import { assetsIcons } from "../../../constants";
-import AppContext from "../../../hooks/createContext";
+import { GeneralStyles, assetsIcons } from "../../../assets";
+import AppContext from "../../hooks/createContext";
 import { logOut } from "../../services";
 import { useFormik } from "formik";
 import * as Yup from "yup";

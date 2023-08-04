@@ -1,20 +1,17 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Platform } from "react-native";
-import { useContext } from "react";
-// Custom components
-import { CustomNavIcon, CustomNavHeader } from "../components";
-// Screens
 import {
   RegisterScreen,
   LoginScreen,
   HelpScreen,
-  HistScreen,
   UserScreen,
 } from "../screens";
-import { AnalysisNavigation } from "./";
-import { NavStyles } from "../../constants";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Platform } from "react-native";
+import { useContext } from "react";
+import { CustomNavIcon, CustomNavHeader } from "../components";
+import { AnalysisNavigation, HistNavigation } from "./";
+import { NavStyles } from "../../assets";
 import { BottomTabNavigatorParamList } from "./types";
-import AppContext from "../../hooks/createContext";
+import AppContext from "../hooks/createContext";
 import { observerAuth } from "../services";
 import { useTranslation } from "react-i18next";
 
@@ -34,9 +31,7 @@ export default function MainNavigation() {
         tabBarStyle: NavStyles.tabStyle,
         tabBarActiveTintColor: "black",
         tabBarHideOnKeyboard: Platform.OS !== "ios",
-        header: ({ navigation }) => (
-          <CustomNavHeader navigation={navigation} customRoute="Hist" />
-        ),
+        header: ({ navigation }) => <CustomNavHeader navigation={navigation} />,
       }}
     >
       {user ? (
@@ -56,10 +51,11 @@ export default function MainNavigation() {
             }}
           />
           <TabStack.Screen
-            name={"Hist"}
-            component={HistScreen}
+            name={"HistNav"}
+            component={HistNavigation}
             options={{
               tabBarLabel: `${t("navigate:history")}`,
+              headerShown: false,
               tabBarLabelStyle: NavStyles.tabLabelStyle,
               tabBarIcon: ({ focused }) =>
                 CustomNavIcon({

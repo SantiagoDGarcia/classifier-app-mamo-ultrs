@@ -1,1 +1,1 @@
-export { timeConverter, showAlert } from "./functions";
+export { timeConverter, showAlert, getDurationAnalysis } from "./helpers";

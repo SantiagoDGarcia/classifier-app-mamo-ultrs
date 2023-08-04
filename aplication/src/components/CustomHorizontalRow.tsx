@@ -1,13 +1,6 @@
-import { Text, View, Image, ImageSourcePropType } from "react-native";
-import { GeneralStyles } from "../../constants";
+import { Text, View, Image } from "react-native";
+import { GeneralStyles } from "../../assets";
 import CustomLanguageSelector from "./CustomLanguajeSelector";
-
-type CustomHorizontalRowProps = {
-  label?: string;
-  description?: string;
-  iconSource?: ImageSourcePropType;
-  isText?: boolean;
-};
 
 export default function CustomHorizontalRow({
   label,

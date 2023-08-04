@@ -1,11 +1,6 @@
 import { Divider } from "@rneui/themed";
 import { Text } from "react-native";
-import { ColorsTheme } from "../../constants";
-
-type CustomDividerTextProps = {
-  positionLeft?: boolean;
-  text: string;
-};
+import { ColorsTheme } from "../../assets";
 
 export function CustomDivider() {
   return (

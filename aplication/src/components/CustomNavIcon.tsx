@@ -1,12 +1,6 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { NavStyles, ColorsTheme } from "../../constants";
-
-type CustomNavIconProps = {
-  name: any;
-  size?: number;
-  focused: boolean;
-};
+import { NavStyles, ColorsTheme } from "../../assets";
 
 export default function CustomNavIcon({
   name,

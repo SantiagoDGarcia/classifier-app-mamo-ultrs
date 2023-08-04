@@ -4,9 +4,9 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { CustomStatusBar } from "./src/components";
 import { useFonts } from "expo-font";
 import { navigationRef } from "./src/navigation/NavigationRouter";
-import { assetsFonts } from "./constants";
+import { assetsFonts } from "./assets";
 import { Text, TextInput } from "react-native";
-import AppContextProvider from "./hooks/context";
+import AppContextProvider from "./src/hooks/context";
 import { Host } from "react-native-portalize";
 import "./src/helpers/languageDetector";
 

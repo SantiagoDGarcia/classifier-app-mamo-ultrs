@@ -1,11 +1,6 @@
 import { ActivityIndicator, Text, View } from "react-native";
-import { AlertStyles, ColorsTheme } from "../../constants";
+import { AlertStyles, ColorsTheme } from "../../assets";
 import { Portal } from "react-native-portalize";
-
-type CustomActivityIndicatorProps = {
-  actionText: string;
-  indicatorActive: boolean;
-};
 
 export default function CustomActivityIndicator({
   actionText,

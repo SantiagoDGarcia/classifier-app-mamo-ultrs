@@ -11,7 +11,7 @@ import { CustomNavIcon, CustomNavHeader } from "../components";
 import { AnalysisNavigation, HistNavigation } from "./";
 import { NavStyles } from "../../assets";
 import { BottomTabNavigatorParamList } from "./types";
-import AppContext from "../hooks/createContext";
+import { AppContext } from "../hooks";
 import { observerAuth } from "../services";
 import { useTranslation } from "react-i18next";
 

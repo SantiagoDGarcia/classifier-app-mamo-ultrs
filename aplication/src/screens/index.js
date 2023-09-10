@@ -1,6 +1,6 @@
 // Analysis
 export { default as AnalysisScreen } from "./Analysis/Analysis";
-export { default as ResultsScreen } from "./Analysis/Results";
+export { default as ResultsScreen } from "./Analysis/Result";
 export { default as TestScreen } from "./Analysis/Test";
 //Auth
 export { default as LoginScreen } from "./Auth/Login";

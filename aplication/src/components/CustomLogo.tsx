@@ -13,7 +13,7 @@ export default function CustomLogo({ color }: CustomLogoProps) {
           },
         ]}
       >
-        MamaCheck
+        BraNet
       </Text>
       <Image source={assetsIcons.logoBase} style={GeneralStyles.logotipeImg} />
     </SafeAreaView>
@@ -27,7 +27,7 @@ export function CustomLogoMedium() {
       <Text
         style={[GeneralStyles.logotipeText, { color: "black", fontSize: 28 }]}
       >
-        MamaCheck
+        BraNet
       </Text>
     </View>
   );

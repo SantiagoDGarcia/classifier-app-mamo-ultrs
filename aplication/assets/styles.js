@@ -59,6 +59,7 @@ export const GeneralStyles = StyleSheet.create({
     color: ColorsTheme.primary,
   },
   infoText: {
+    minWidth: "45%",
     overflow: "hidden",
     color: "white",
     paddingHorizontal: 15,
@@ -125,6 +126,22 @@ export const LoginStyles = StyleSheet.create({
     height: "90%",
     justifyContent: "center",
     flex: 1,
+  },
+  LoginRegisterView: {
+    width: "100%",
+    alignItems: "center",
+  },
+  checkContainer: {
+    marginTop: 15,
+    marginBottom: 5,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
+    alignItems: "center",
+  },
+  showError: {
+    color: "#E40E00",
+    fontWeight: "500",
   },
 });
 
@@ -242,6 +259,19 @@ export const AnalysisStyles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 30,
   },
+  resultsInfoContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  resultsRoiContainer: {
+    flex: 1,
+    marginBottom: "5%",
+  },
+  resultsTextResultContainer: {
+    width: "50%",
+    marginBottom: 15,
+  },
 });
 
 // Test
@@ -280,6 +310,28 @@ export const TestStyles = StyleSheet.create({
   },
 });
 
+// Help
+export const HelpStyles = StyleSheet.create({
+  imageBackContainer: {
+    width: "100%",
+    minHeight: 200,
+  },
+  imageBack: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  itemContainer: {
+    marginVertical: 10,
+    flex: 1,
+  },
+  footerText: {
+    textAlign: "center",
+    color: ColorsTheme.primary,
+    padding: 14,
+  },
+});
+
 // Alerts
 export const AlertStyles = StyleSheet.create({
   container: {
@@ -291,7 +343,6 @@ export const AlertStyles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
   },
   subContainer: {
     backgroundColor: "white",
@@ -404,6 +455,11 @@ export const TextInputsStyles = StyleSheet.create({
     alignItems: "center",
   },
   textInput: {
+    ...Platform.select({
+      ios: {
+        paddingVertical: 7,
+      },
+    }),
     paddingHorizontal: 7,
     borderBottomWidth: 1,
     borderBottomColor: ColorsTheme.primary,
@@ -432,6 +488,7 @@ export const TextInputsStyles = StyleSheet.create({
   },
 });
 
+// Others
 export const FullScreenStyles = StyleSheet.create({
   exitIconContainer: {
     margin: 5,
@@ -452,6 +509,43 @@ export const FullScreenStyles = StyleSheet.create({
     zIndex: 2,
     right: 0,
   },
+  exitIconContainerInfo: {
+    margin: 5,
+    ...Platform.select({
+      ios: {
+        marginTop: 75,
+      },
+      android: {
+        marginTop: 20,
+      },
+    }),
+    height: "auto",
+    width: "auto",
+    justifyContent: "center",
+    backgroundColor: "#000000",
+    borderRadius: 100,
+    position: "absolute",
+    zIndex: 2,
+    right: 0,
+  },
+  titleContainerInfo: {
+    ...Platform.select({
+      ios: {
+        marginTop: 78,
+      },
+      android: {
+        marginTop: 24,
+      },
+    }),
+    textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  containerViewInfo: {
+    height: "100%",
+    backgroundColor: "white",
+    flex: 1,
+  },
   exitIcon: {
     width: 30,
     height: 30,
@@ -469,5 +563,35 @@ export const FullScreenStyles = StyleSheet.create({
   maximizeIcon: {
     width: 30,
     height: 30,
+  },
+});
+
+export const TermsConditionsStyles = StyleSheet.create({
+  container: {
+    width: "100%",
+    marginTop: "5%",
+    backgroundColor: "white",
+    alignItems: "center",
+  },
+  scrollStyle: {
+    ...Platform.select({
+      ios: {
+        marginBottom: 20,
+      },
+      android: {
+        marginBottom: 10,
+      },
+    }),
+    width: "90%",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  sectionContainer: {
+    paddingVertical: 10,
+  },
+  info: {
+    textAlign: "justify",
   },
 });

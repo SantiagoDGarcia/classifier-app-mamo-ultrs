@@ -33,6 +33,8 @@ export default {
   completeAllFields: "Complete all fields to register.",
   register: "Register",
   alreadyHaveAccount: "Already have an account? Log in.",
+  iAcceptTerms: "I accept the ",
+  termsandConditions: "Terms and Conditions",
   // Hist
   previousAnalysisHistory: "Previous analysis history",
   results: "Results",
@@ -42,19 +44,20 @@ export default {
   extractMasksAndRegionsOfInterest: "Extract masks and regions of interest",
   loadImage: "Load image",
   weRecommend:
-    "We recommend taking into account the following characteristics to achieve the best result in the analysis of your images.",
+    "We recommend that you keep the following points in mind to achieve the best result:",
   cropImage:
-    "- If possible, crop the image in the region that you have the most abnormal, this way the result will improve",
-  imageResolution: "- The resolution of the image.",
-  supportedFormats: "- The application supports JPG, JPEG, PNG.",
-  undistortedImage: "- An image with little distortion.",
-  moreInformation: "More information.",
+    "- If possible, when selecting the image, use the tool to make a manual crop, so the application will not analyze irrelevant content and will have greater accuracy.",
+  imageResolution: "- A high-resolution image with little distortion.",
+  supportedFormats: "- The image format must be JPG, JPEG or PNG.",
+  moreInformation: "More information? Check out the Help.",
   startEvaluation: "Start evaluation",
   // Results
   analysisOf: "Analysis of",
-  regionOfInterest: "Region of interest (ROI)",
+  regionOfInterest: "Region of Interest (ROI)",
   algorithmEvaluation:
-    "With the evaluations of our algorithm, we deduce with a 92% accuracy that the result of your image is:",
+    "The result of the analysis carried out was done through Deep Learning algorithms, the same are based on ResNet18, for more information visit the Help module.",
+  algorithmEvaluation2: "The detected ROIs are marked with a white border.",
+  idontLikeResult: "Incorrect result? See Help.",
   benign: "BENIGN",
   malignant: "MALIGNANT",
   date: "Date",
@@ -68,24 +71,30 @@ export default {
   // Help
   whatIsROI: "What does ROI (Region of Interest) mean?",
   roiDescription:
-    "It is the search and extraction of a part of the image that you want to filter, to carry out a more precise analysis.",
+    "It is the search and detection of the most important areas of the image, in this way a more precise analysis is carried out.",
   isRoiExtractionNecessary: "Is it necessary to extract the ROI from my image?",
   roiExtractionDescription:
-    "If your image is of high quality, it is recommended to select the option to extract ROI and masks before performing the analysis, otherwise it is recommended to do a manual crop when selecting the image.",
+    "If your image is of high quality, it is recommended to select the option 'Extract masks and regions of interest', otherwise you can extract the ROIs but it is possible that the detected regions are not correct.",
   incorrectRois:
     "The ROIs extracted by the application are not correct. What should I do?",
   incorrectRoisDescription:
     "This usually happens depending on the type of image, quality, existence of noise among other factors. If this is the case, it is most likely that the analysis was erroneous, for this consider redoing the analysis with a higher quality image or doing it without extracting the masks, if not only by doing the manual crop when selecting the image.",
   analysisDuration: "How long does it take to analyze an image?",
   analysisDurationDescription:
-    "The application will return the result in 1-2 minutes if ROIs are not extracted from the image, otherwise it will take 3-5 minutes.",
+    "If you do not activate the option 'Extract masks and regions of interest' the application will return the result in 1-2 minutes, otherwise it will take 3-6 minutes.",
   supportedImageTypes: "What types of images does the application support?",
   supportedImageTypesDescription:
-    "The application supports various types of images, including JPG, PNG, JPEG.",
+    "The application supports various types of images with a maximum size of 10MB, including JPG, PNG, JPEG.",
   unsupportedImageFormats:
     "What can I do if my image is not in a format supported by the application?",
   unsupportedImageFormatsDescription:
-    "You can use an image converter program to transform your image into a supported format.",
-  improveAnalysisResult: "How can I improve my analysis result?",
-  improveAnalysisResultDescription: "JPG",
+    "You can use an external image conversion program to transform your image into a supported format.",
+  improveAnalysisResult: "How to get the best result for my analysis?",
+  improveAnalysisResultDescription:
+    "The quality and definition of the image are the most important factors to consider but they are not the only ones, one of the best recommendations is always to manually crop the most important region of the image. This can be done when selecting the image, so that information that is not relevant to the image is not analyzed, reducing evaluation time and improving results.",
+  needMoreHelp:
+    "Do you need more information? Contact us at our email support_branet@gmail.com",
+  deleteAnalysis: "How can I delete an analysis?",
+  deleteAnalysisDescription:
+    "To delete an analysis, go to the history tab and press and hold on the analysis until a notification appears. Press 'OK' to delete content.",
 };

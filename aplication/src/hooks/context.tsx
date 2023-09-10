@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import AppContext from "./createContext";
+import AppContext from "./CreateContext";
 
-const AppContextProvider = (props: {
+export default function AppContextProvider(props: {
   children: React.ReactElement<any, string | React.JSXElementConstructor<any>>;
-}) => {
+}) {
   const [user, setUser] = useState<any | null>(null);
   const [loading, setLoading] = useState<boolean | null>(false);
   const [fullScreenIndex, setFullScreenIndex] = useState<number | null>(0);
@@ -26,6 +26,4 @@ const AppContextProvider = (props: {
       {props.children}
     </AppContext.Provider>
   );
-};
-
-export default AppContextProvider;
+}

@@ -19,10 +19,16 @@ interface CustomDividerTextProps {
   text: string;
 }
 
-interface CustomFullScreenLayerProps {
+interface CustomFullScreenImageProps {
   uri: string[];
   size: number;
   indexImage: number;
+}
+
+interface CustomFullScreenInfoProps {
+  actionableText: string;
+  titlecustomView?: string;
+  customView: React.ReactNode;
 }
 
 interface CustomHorizontalRowProps {
@@ -36,6 +42,7 @@ interface CustomListItemHistProps {
   item: any;
   navigation: any;
   t: any;
+  refreshData: () => void;
 }
 
 interface CustomLogoProps {
@@ -91,12 +98,55 @@ interface contextProps {
   ];
 }
 
-// Screens
-type ItemData = {
+// Screens and Services
+type HelpContenDataProps = {
   id: number;
   title: string;
   description: string;
 };
+
+interface FirebaseSendResetEmailProps {
+  email: string;
+  doAfterRequest: () => void;
+}
+
+interface FirebaseLoginProps {
+  email: string;
+  password: string;
+}
+
+interface FirebaseRegisterAuthProps {
+  email: string;
+  password: string;
+  name: string;
+  organization: string;
+}
+
+interface FirebaseRegisterFirestoreProps {
+  email: string;
+  name: string;
+  organization: string;
+  user: UserCredential;
+}
+
+interface FirebaseChangePasswordProps {
+  oldPassword: string;
+  newPassword: string;
+}
+
+interface FirebaseGetResultProps {
+  idResult: string;
+}
+
+interface FirebaseHideResultProps {
+  idResult: string;
+}
+
+interface ApiAnalizeImageProps {
+  typeAnalysis: string;
+  extractRoi: boolean;
+  source: any;
+}
 
 // Constants
 interface TypeColor {

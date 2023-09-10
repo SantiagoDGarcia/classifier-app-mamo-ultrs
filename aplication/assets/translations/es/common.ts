@@ -15,7 +15,7 @@ export default {
     "Completa los campos para reiniciar la contraseña",
   logout: "Cerrar sesión",
   spanish: "Español",
-  english: "Ingles",
+  english: "Inglés",
   selectLanguage: "Selecciona el idioma",
   // Login
   enterEmail: "Escribe tu correo electronico para restablecer la contraseña.",
@@ -34,27 +34,30 @@ export default {
   completeAllFields: "Completa todos los campos para registrarse.",
   register: "Registrarse",
   alreadyHaveAccount: "¿Ya tienes cuenta? Inicia sesión.",
+  iAcceptTerms: "Acepto los ",
+  termsandConditions: "Términos y Condiciones",
   // Hist
-  previousAnalysisHistory: "Historial de analisis previos",
+  previousAnalysisHistory: "Historial de análisis previos",
   results: "Resultado",
   noHistResults: "Sin información previa.",
   durationAnalysis: "Duración análisis",
   // Test
-  extractMasksAndRegionsOfInterest: "Extraer mascaras y regiones de interes",
+  extractMasksAndRegionsOfInterest: "Extraer máscaras y regiones de interés",
   loadImage: "Cargar imagen",
   weRecommend:
-    "Te recomendamos tener en cuenta las siguientes caracteristicas para lograr el mejor resultado en el analisis de tus imagenes.",
+    "Te recomendamos tener en cuenta los siguientes puntos para lograr el mejor resultado:",
   cropImage:
-    "- En lo posible recorta la imagen en la region que mas anormal tengas, de esta forma mejorara el resultado",
-  imageResolution: "- La resolucion de la imagen.",
-  supportedFormats: "- La aplicacion admite JPG, JPEG, PNG.",
-  undistortedImage: "- Una imagen con poca distorsion.",
-  moreInformation: "Más información.",
+    "- En lo posible, al momento de seleccionar la imagen usa la herramienta para hacer un recorte manual, de esta forma la aplicación no analizará contenido irrelevante y tendra mayor precisión.",
+  imageResolution: "- Una imagen de alta resolución y poca distorsión.",
+  supportedFormats: "- El formato de la imagen debe ser JPG, JPEG o PNG.",
+  moreInformation: "¿Más información? Consulta la Ayuda.",
   startEvaluation: "Iniciar evaluación",
   // Results
-  regionOfInterest: "Región de Interes (ROI)",
+  regionOfInterest: "Región de Interés (ROI)",
   algorithmEvaluation:
-    "Con las evaluaciones de nuestro algoritmo, deducimos con un 92% de precisión que el resultado de tu imágen es:",
+    "El resultado del análisis realizado se llevo a cabo mediante algoritmos de Deep Learning, los mismos estan basados en ResNet18, para más informacion visita el módulo de Ayuda.",
+  algorithmEvaluation2: "Los ROI detectados se marcan en un borde blanco.",
+  idontLikeResult: "¿Resultado erróneo? Consulta la Ayuda.",
   benign: "BENIGNO",
   malignant: "MALIGNO",
   date: "Fecha",
@@ -68,24 +71,31 @@ export default {
   // Help
   whatIsROI: "¿Qué significa ROI (Región de Interés)?",
   roiDescription:
-    "Es búsqueda y extracción de una parte de la imagen que se desea filtrar, para realizar un análisis más preciso.",
+    "Es la búsqueda y detección de las zonas mas importantes de la imagen, de esta forma se realiza un análisis con mayor precisión.",
   isRoiExtractionNecessary: "¿Es necesario extraer el ROI de mi imagen?",
   roiExtractionDescription:
-    "Si tu imagen es de alta calidad se recomienda seleccionar la opción de extracción de ROI y máscaras antes de realizar el análisis, caso contrario se recomienda hacer un recorte manual al omento de seleccionar la imagen.",
+    "Si tu imagen es de alta calidad se recomienda seleccionar la opción “Extraer máscaras y regiones de interés”, caso contrario se puede extraer los ROI pero es posible que las regiones detectadas no sean correctas.",
   incorrectRois:
-    "Los ROIs que extrajo la aplicacion no son correctos ¿Qué debo hacer?",
+    "Los ROIs que extrajo la aplicación no son correctos ¿Qué debo hacer?",
   incorrectRoisDescription:
-    "Esto suele suceder dependiendo del tipo imagen, calidad, existencia de ruido entre otros factores. Si este es el caso lo más probable es que el analisis haya sido erroneo, para ello considera realizar nuevamente el analisis con una imagen de mayor calidad o realizarlo sin extraer las mascaras, si no solamente haciendo el recorte manual al momento de seleccionar la imagen.",
+    "Esto suele suceder dependiendo del tipo imagen, calidad, existencia de ruido entre otros factores. Si este es el caso lo más probable es que el análisis haya sido erroneo, para ello considera realizar nuevamente el análisis con una imagen de mayor calidad o realizarlo sin extraer las máscaras, si no solamente haciendo el recorte manual al momento de seleccionar la imagen.",
   analysisDuration: "¿Qué tiempo dura el análisis de la imagen?",
   analysisDurationDescription:
-    "La aplicación retornará el resultado en 1-2 minutos si no se extraen los ROI de la imagen, caso contrario durará 3-5 minutos.",
+    "Si no se activa la opción “Extraer máscaras y regiones de interés” la aplicación retornará el resultado en 1-2 minutos, caso contrario tendra una duración de 3-6 minutos.",
   supportedImageTypes: "¿Qué tipo de imágenes admite la aplicación?",
   supportedImageTypesDescription:
-    "La aplicación admite diversos tipos de imágenes, entre ellos se encuentran JPG, PNG, JPEG.",
+    "La aplicación admite diversos tipos de imágenes con un tamaño máximo de 10MB, entre ellos se encuentran JPG, PNG, JPEG.",
   unsupportedImageFormats:
-    "¿Qué puedo hacer si mi imagen no se encuentra en los formatos permitidos por la aplicacion?",
+    "¿Qué puedo hacer si mi imagen no se encuentra en los formatos permitidos por la aplicación?",
   unsupportedImageFormatsDescription:
-    "Se puede usar un programa conversor de imagenes para que transforme tu imagen a un formato admitido.",
-  improveAnalysisResult: "¿Cómo mejorar el resultado del análisis?",
-  improveAnalysisResultDescription: "tran JPG, PNG, JPEG.",
+    "Se puede usar un programa externo de conversión de imagenes para que transforme tu imagen a un formato admitido.",
+  improveAnalysisResult:
+    "¿Cómo obtener el mejor el resultado para mis análisis?",
+  improveAnalysisResultDescription:
+    "La calidad y definición de la imagen son los factores más importantes a tener en cuenta pero no son los únicos, una de las mejores recomendaciones es siempre recortar manualmente la región mas importante de la imagen, esto se puede realizar al momento de seleccionar la imagen, de esta forma no se analizará información que no es relevante de la imagen reduciendo el tiempo de evaluación y mejorando el resultado.",
+  needMoreHelp:
+    "¿Necesitas mas información? Contactos a nuestro email support_branet@gmail.com",
+  deleteAnalysis: "¿Cómo puedo eliminar un análisis?",
+  deleteAnalysisDescription:
+    "Para eliminar un análisis, vaya a la pestaña de historial y mantenga presionado el análisis hasta que aparezca una notificación. Presione 'OK' para eliminar el contenido.",
 };

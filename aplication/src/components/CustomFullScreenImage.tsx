@@ -9,13 +9,13 @@ import {
 import { Modal } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { useContext } from "react";
-import AppContext from "../hooks/createContext";
+import { AppContext } from "../hooks";
 
-export default function CustomFullScreenLayer({
+export default function CustomFullScreenImage({
   uri,
   size,
   indexImage,
-}: CustomFullScreenLayerProps) {
+}: CustomFullScreenImageProps) {
   const {
     activatedFullScreen: [
       activatedFullScreen,

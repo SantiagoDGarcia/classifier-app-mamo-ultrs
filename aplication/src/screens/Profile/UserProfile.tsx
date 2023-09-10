@@ -17,7 +17,7 @@ import {
   CustomTextInput,
 } from "../../components";
 import { GeneralStyles, assetsIcons } from "../../../assets";
-import AppContext from "../../hooks/createContext";
+import { AppContext } from "../../hooks";
 import { logOut } from "../../services";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -59,7 +59,10 @@ export default function UserScreen() {
     onSubmit: (values, onSubmitProps) => {
       setActivityMessage(`${t("alert:updatingPassword")}`);
       setLoading(true);
-      changeUserPassword(values.oldPassword, values.newPassword).finally(() => {
+      changeUserPassword({
+        oldPassword: values.oldPassword,
+        newPassword: values.newPassword,
+      }).finally(() => {
         setLoading(false);
         setActivityMessage(`${t("alert:closeSession")}`);
         onSubmitProps.setSubmitting(false);

@@ -22,8 +22,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/**/*.ts",
-    "**/**/*.tsx",
-    "constants/styles.js"
+    "**/**/*.tsx"
   ],
   "exclude": ["node_modules"],
   "extends": "expo/tsconfig.base"

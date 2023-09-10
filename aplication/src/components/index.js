@@ -10,4 +10,6 @@ export { default as CustomNavIcon } from "./CustomNavIcon";
 export { CustomNavHeader } from "./CustomNavHeader";
 export { default as CustomActivityIndicator } from "./CustomActivityIndicator";
 export { default as CustomFullScreenImage } from "./CustomFullScreenImage";
+export { default as CustomFullScreenInfo } from "./CustomFullScreenInfo";
+export { default as CustomTermsConditions } from "./CustomTermsConditions";
 export { default as CustomListItemHist } from "./CustomListItemHist";

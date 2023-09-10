@@ -10,19 +10,27 @@ import {
 import {
   CustomActivityIndicator,
   CustomButton,
+  CustomFullScreenInfo,
   CustomLink,
   CustomLogoMedium,
+  CustomTermsConditions,
   CustomTextInput,
 } from "../../components";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { assetsIcons, GeneralStyles, LoginStyles } from "../../../assets";
+import {
+  assetsIcons,
+  ColorsTheme,
+  GeneralStyles,
+  LoginStyles,
+} from "../../../assets";
 import { registerUserAuth } from "../../services";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 import { useContext } from "react";
-import AppContext from "../../hooks/createContext";
+import { AppContext } from "../../hooks";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
 import { RegisterScreenNavigationProp } from "../../navigation/types";
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function RegisterScreen() {
   const {
@@ -38,12 +46,14 @@ export default function RegisterScreen() {
       email: "",
       password: "",
       organization: "",
+      acceptTerms: false,
     },
     initialTouched: {
       name: false,
       email: false,
       password: false,
       organization: false,
+      acceptTerms: false,
     },
     validationSchema: Yup.object({
       name: Yup.string().required(`${t("alert:enterName")}`),
@@ -58,15 +68,16 @@ export default function RegisterScreen() {
         .min(8)
         .required(`${t("alert:enterPassword")}`),
       organization: Yup.string().required(`${t("alert:enterOrganization")}`),
+      acceptTerms: Yup.bool().oneOf([true], `${t("alert:errorAcceptTerms")}`),
     }),
     onSubmit: (values) => {
       setLoading(true);
-      registerUserAuth(
-        values.email,
-        values.password,
-        values.name,
-        values.organization
-      );
+      registerUserAuth({
+        email: values.email,
+        password: values.password,
+        name: values.name,
+        organization: values.organization,
+      });
       setTimeout(() => {
         setLoading(false);
       }, 400);
@@ -85,18 +96,14 @@ export default function RegisterScreen() {
             indicatorActive={loading}
           />
         )}
+
         <TouchableWithoutFeedback
           onPress={Keyboard.dismiss}
           style={{ flex: 1 }}
         >
           <View style={{ flex: 0 }}>
             <CustomLogoMedium />
-            <View
-              style={{
-                width: "100%",
-                alignItems: "center",
-              }}
-            >
+            <View style={LoginStyles.LoginRegisterView}>
               <Text style={GeneralStyles.textDescription}>
                 {t("common:completeAllFields")}
               </Text>
@@ -142,6 +149,25 @@ export default function RegisterScreen() {
               stateOnBlur={formik.touched.organization}
               icon={assetsIcons.organization}
             />
+            <View style={[LoginStyles.LoginRegisterView, { marginBottom: 10 }]}>
+              <View style={LoginStyles.checkContainer}>
+                <BouncyCheckbox
+                  onPress={(pressed: boolean) =>
+                    formik.setFieldValue("acceptTerms", pressed)
+                  }
+                  fillColor={ColorsTheme.primary}
+                />
+                <Text>{`${t("common:iAcceptTerms")}`}</Text>
+                <CustomFullScreenInfo
+                  actionableText={`${t("common:termsandConditions")}`}
+                  titlecustomView={`${t("common:termsandConditions")}`}
+                  customView={<CustomTermsConditions />}
+                />
+              </View>
+              <Text style={LoginStyles.showError}>
+                {formik.errors.acceptTerms}
+              </Text>
+            </View>
             <CustomButton
               text={`${t("common:register")}`}
               onPress={formik.handleSubmit}
@@ -153,12 +179,6 @@ export default function RegisterScreen() {
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      {/* <View style={[GeneralStyles.subContainer, { flex: 1 }]}>
-    <Text style={GeneralStyles.textDescription}>
-      Todos los derechos reservados y pertenecientes a la Universidad
-      Tecnica Particular de Loja.
-    </Text>
-  </View> */}
     </SafeAreaView>
   );
 }

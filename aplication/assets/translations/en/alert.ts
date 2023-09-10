@@ -1,6 +1,7 @@
 export default {
   wait: "Waiting...",
   loading: "Loading...",
+  cancel: "Cancel",
   closeSession: "Closing session...",
   analyzingImage: "Analyzing image...",
   chooseImage: "Select an image to start the analysis.",
@@ -16,6 +17,7 @@ export default {
   minimumCharacters: "Minimum of 8 characters required.",
   enterNewPassword: "Enter the new password.",
   updatingPassword: "Updating password...",
+  errorAcceptTerms: "You must accept the terms to register.",
   errorNoRoiFound:
     "No region of interest was found, please check the Help module or perform the analysis without extracting the ROI.",
   errorGeneric: "An error has occurred. Please try again.",
@@ -29,4 +31,13 @@ export default {
   errorChangePassword:
     "Your current password could not be validated. Please enter it again.",
   changePasswordOk: "Your password has been successfully updated.",
+  waitToTryAgain: "Please wait resetTimer seconds before trying again.",
+  errorNofileAllowed:
+    "The file is not allowed, please check that the format is JPG, PNG or JPEG.",
+  operationTimedOut: "The connection time has expired, please try again.",
+  deleteAlertTitle: "Delete Content",
+  deleteAlertInfo: "Are you sure you want to delete this analysis?",
+  errorHasOcurred: "An error has occurred.",
+  passwordUpdated: "Password updated",
+  emailSent: "Email sent",
 };

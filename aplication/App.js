@@ -6,7 +6,7 @@ import { useFonts } from "expo-font";
 import { navigationRef } from "./src/navigation/NavigationRouter";
 import { assetsFonts } from "./assets";
 import { Text, TextInput } from "react-native";
-import AppContextProvider from "./src/hooks/context";
+import { AppContextProvider } from "./src/hooks";
 import { Host } from "react-native-portalize";
 import "./src/helpers/languageDetector";
 

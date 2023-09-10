@@ -1,62 +1,41 @@
 import { REACT_APP_API_EVALUATE } from "@env";
 import { auth } from "./firebase";
 
-// gets the url according to the parameters
-function urlApi(type: string, extract_roi: boolean): string {
-  // Convert the type to lowercase and check if it starts with "u"
-  const typeLower =
-    type[0].toLowerCase() === "u" ? "ultrasound" : "mammography";
-
-  // Construct the API URL using the type and extract_roi parameters
-  const link =
-    REACT_APP_API_EVALUATE + `${typeLower}/?extract_roi=${extract_roi}`;
-
-  return link;
-}
-
-export async function analizeImage(
-  type: string,
-  extract_roi: boolean,
-  source: any
-): Promise<any> {
+// Send and receive response from backend
+export async function analizeImage({
+  typeAnalysis,
+  extractRoi,
+  source,
+}: ApiAnalizeImageProps): Promise<any> {
+  const formdata = new FormData();
   const authToken = await auth.currentUser!.getIdToken(/* forceRefresh */ true);
-
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  // Create a new FormData object
-  let formdata = new FormData();
-
-  // Get the file extension from the source URI
   const extension = source.assets[0].uri.split(".").pop();
+  const timeoutResponse = 10 * 60 * 1000;
+  const typeLower =
+    typeAnalysis[0].toLowerCase() === "u" ? "ultrasound" : "mammography";
+  const urlApi =
+    "http://192.168.1.6:8000/evaluate-image/" +
+    `${typeLower}/?extract_roi=${extractRoi}`;
+  console.log(urlApi);
+  await new Promise((resolve) => setTimeout(resolve, 4000));
 
-  // Create a photo object with the URI, type, and extension of the source image
-  let photo = {
-    uri: source.assets[0].uri,
-    type: source.assets[0].type + "/" + extension,
-  };
-
-  // Append the photo to the FormData object
   formdata.append("file", {
-    uri: photo.uri,
+    uri: source.assets[0].uri,
     name: `image.${extension}`,
-    type: photo.type,
+    type: source.assets[0].type + "/" + extension,
   });
-  console.log("URL ", urlApi(type, extract_roi));
-  // Make a POST request to the API with the FormData as the body
-  return fetch(urlApi(type, extract_roi), {
+
+  const fetchPromise = fetch(urlApi, {
     method: "POST",
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${authToken}`,
     },
     body: formdata,
-  })
-    .then((response) => response.json())
-    .then((json) => {
-      return json;
-    })
-    .catch((err) => {
-      console.log("Error al cargar solicitud", err);
-      return new Error("Error");
-    });
+  }).then((response) => response.json());
+
+  const timeoutPromise = new Promise((_, reject) =>
+    setTimeout(() => reject(new Error("Operation timed out")), timeoutResponse)
+  );
+  return Promise.race([fetchPromise, timeoutPromise]);
 }

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "MamaCheck",
+    "name": "BraNet",
     "slug": "AppClassificationMama",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -17,10 +17,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.utpl.mamacheck"
+      "bundleIdentifier": "com.utpl.branet"
     },
     "android": {
-      "package": "com.utpl.mamacheck",
+      "package": "com.utpl.branet",
       "permissions": ["android.permission.READ_EXTERNAL_STORAGE"]
     },
     "androidNavigationBar": {

@@ -1,5 +1,7 @@
 // Firebase
 export {
+  auth,
+  db,
   observerAuth,
   logOut,
   loginUser,
@@ -7,11 +9,9 @@ export {
   sendEmailOnReset,
   changeUserPassword,
   getResultData,
-  getAllResultsData,
-  sendEmailPasswordCode,
+  getAllHistData,
+  hideResultData,
 } from "./firebase";
 
 // Evaluate
 export { analizeImage } from "./evaluate";
-
-export { auth, db } from "./firebase";

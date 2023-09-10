@@ -4,7 +4,7 @@ import { HistScreenNavigationProp } from "../../navigation/types";
 import { useEffect, useState } from "react";
 import { CustomActivityIndicator, CustomListItemHist } from "../../components";
 import { GeneralStyles } from "../../../assets";
-import { getAllResultsData } from "../../services";
+import { getAllHistData } from "../../services";
 import { useTranslation } from "react-i18next";
 
 export default function HistScreen() {
@@ -14,17 +14,21 @@ export default function HistScreen() {
   const [histData, setHistData]: any = useState(null);
   const { t } = useTranslation();
 
+  const refreshData = () => {
+    setLoading(true);
+    getAllHistData().then((value) => {
+      setHistData(value);
+      setLoading(false);
+    });
+  };
+
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
-      setLoading(true);
-      getAllResultsData().then((value) => {
-        setHistData(value);
-        setLoading(false);
-      });
+      refreshData();
     });
-
     return unsubscribe;
   }, []);
+
   return (
     <SafeAreaView style={GeneralStyles.container}>
       {loading ? (
@@ -49,7 +53,12 @@ export default function HistScreen() {
                 </Text>
               }
               renderItem={({ item }) => (
-                <CustomListItemHist item={item} navigation={navigation} t={t} />
+                <CustomListItemHist
+                  item={item}
+                  navigation={navigation}
+                  t={t}
+                  refreshData={refreshData}
+                />
               )}
             />
           </View>

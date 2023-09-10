@@ -23,7 +23,7 @@ import {
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { ScrollView } from "react-native-gesture-handler";
 import { analizeImage } from "../../services";
-import { showAlert } from "../../helpers";
+import { showError } from "../../helpers";
 import { useTranslation } from "react-i18next";
 
 export default function TestScreen() {
@@ -48,26 +48,31 @@ export default function TestScreen() {
   };
 
   const startTest = async () => {
-    let response;
     if (imgSelected) {
       setLoading(true);
-      response = await analizeImage(typeAnalysis, extractRoi, imgSelected);
-      if (response instanceof Error) {
-        showAlert(`${t("alert:errorGeneric")}`);
-      } else {
-        console.log(response);
-        if (response.result == "ERROR") {
-          showAlert(response.aditionalInfo.toString());
+      try {
+        const response = await analizeImage({
+          typeAnalysis: typeAnalysis,
+          extractRoi: extractRoi,
+          source: imgSelected,
+        });
+        if (response instanceof Error) {
+          showError(response.toString(), t);
+        } else if (response.result == "ERROR") {
+          showError(response.aditionalInfo.toString(), t);
         } else {
           navigation.navigate("Results", {
             idResult: response.idResult,
             typeAnalysis: typeAnalysis,
           });
         }
+      } catch (error: any) {
+        showError(error.toString(), t);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     } else {
-      showAlert(`${t("alert:chooseImage")}`);
+      showError("NO CHOOSE IMAGE", t);
     }
   };
   return (
@@ -78,7 +83,7 @@ export default function TestScreen() {
           actionText={t("alert:analyzingImage")}
         />
       )}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={[GeneralStyles.subContainer, { alignItems: "center" }]}>
           <TouchableOpacity
             onPress={() =>
@@ -125,18 +130,15 @@ export default function TestScreen() {
               <Text style={GeneralStyles.textDescription}>
                 {t("common:weRecommend")}
               </Text>
-              <View style={{ marginLeft: 10 }}>
-                <Text style={GeneralStyles.textDescription}>
-                  {t("common:cropImage")}
-                </Text>
+              <View style={{ marginLeft: 11 }}>
                 <Text style={GeneralStyles.textDescription}>
                   {t("common:imageResolution")}
                 </Text>
                 <Text style={GeneralStyles.textDescription}>
-                  {t("common:supportedFormats")}
+                  {t("common:cropImage")}
                 </Text>
                 <Text style={GeneralStyles.textDescription}>
-                  {t("common:undistortedImage")}
+                  {t("common:supportedFormats")}
                 </Text>
               </View>
               <View style={{ marginBottom: 0, marginTop: 15 }}>

@@ -1,9 +1,4 @@
-// import React from "react";
-import { useFormik } from "formik";
-import { useContext, useState } from "react";
-import * as Yup from "yup";
-import { SafeAreaView } from "react-native-safe-area-context";
-
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Platform,
 } from "react-native";
-import { GeneralStyles, LoginStyles, assetsIcons } from "../../../assets";
 import {
   CustomButton,
   CustomLink,
@@ -20,7 +14,12 @@ import {
   CustomLogo,
   CustomActivityIndicator,
 } from "../../components";
-import AppContext from "../../hooks/createContext";
+import { useFormik } from "formik";
+import { useContext } from "react";
+import * as Yup from "yup";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { GeneralStyles, LoginStyles, assetsIcons } from "../../../assets";
+import { AppContext } from "../../hooks";
 import { loginUser, sendEmailOnReset } from "../../services";
 import { useTranslation } from "react-i18next";
 import { useNavigation } from "@react-navigation/native";
@@ -34,7 +33,32 @@ export default function LoginScreen() {
 
   const [resetPassword, setResetPassword] = useState(false);
   const [emailToReset, setEmailToReset] = useState("");
+  const [resetButtonDisabled, setResetButtonDisabled] = useState(false);
+  const [resetTimer, setResetTimer] = useState(30);
   const { t } = useTranslation();
+
+  useEffect(() => {
+    if (resetButtonDisabled) {
+      const interval = setInterval(() => {
+        setResetTimer((prevResetTimer) => prevResetTimer - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [resetButtonDisabled]);
+
+  useEffect(() => {
+    if (resetTimer === 0) {
+      setResetButtonDisabled(false);
+      setResetTimer(30);
+    }
+  }, [resetTimer]);
+
+  const handleSendEmailOnReset = (email: string) => {
+    sendEmailOnReset({
+      email: email,
+      doAfterRequest: () => setResetButtonDisabled(true),
+    });
+  };
 
   const validator = useFormik({
     initialValues: {
@@ -53,10 +77,11 @@ export default function LoginScreen() {
     }),
     onSubmit: (values) => {
       setLoading(true);
-      loginUser(values.email, values.password).finally(() =>
-        setTimeout(() => {
-          setLoading(false);
-        }, 500)
+      loginUser({ email: values.email, password: values.password }).finally(
+        () =>
+          setTimeout(() => {
+            setLoading(false);
+          }, 500)
       );
     },
   });
@@ -141,9 +166,18 @@ export default function LoginScreen() {
                     textPlaceholder={`${t("common:email")}`}
                     icon={assetsIcons.email}
                   />
+                  {resetButtonDisabled && (
+                    <Text style={{ textAlign: "center", fontWeight: "900" }}>
+                      {t("alert:waitToTryAgain").replace(
+                        "resetTimer",
+                        resetTimer.toString()
+                      )}
+                    </Text>
+                  )}
                   <CustomButton
                     text={`${t("common:reset")}`}
-                    onPress={() => sendEmailOnReset(emailToReset)}
+                    onPress={() => handleSendEmailOnReset(emailToReset)}
+                    disable={resetButtonDisabled}
                   />
                   <CustomLink
                     text={` ${t("common:cancel")} `}
